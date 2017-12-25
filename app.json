@@ -16,15 +16,15 @@
       "backgroundColor": "#ffffff"
     },
     "notification": {
-      "image": "./assets/images/notification-icon.png",
+      "icon": "./assets/images/notification-icon.png",
       "color": "#2793e8"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "org.sakal.exp"
+      "bundleIdentifier": "com.apk.sakal"
     },
     "android": {
-      "package": "org.sakal.exp"
+      "package": "com.apk.sakal"
     }
   }
 }
