@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "sdkVersion": "24.0.0",
+    "version": "1.0",
+    "name": "QuizCards",
+    "description": "App for training your memory",
+    "slug": "cards",
+    "platforms": ["ios", "android"],
+    "orientation": "portrait",
+    "primaryColor": "#2793e8",
+    "privacy": "public",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "notification": {
+      "image": "./assets/images/notification-icon.png",
+      "color": "#2793e8"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.sakal.exp"
+    },
+    "android": {
+      "package": "org.sakal.exp"
+    }
+  }
+}
