@@ -11,7 +11,8 @@
           "components": ["./components"],
           "constants": ["./constants"],
           "navigation": ["./navigation"],
-          "screens": ["./screens"]
+          "screens": ["./screens"],
+          "redux": ["./redux"]
         }]
       ]
     }
