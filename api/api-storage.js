@@ -1,55 +1,91 @@
 import {AsyncStorage} from 'react-native';
+import DefaultData from './default-data';
 
-export const key = {
-  CARDS: 'QuizCards:cards',
-  DECKS: 'QuizCards:decks',
-};
+export async function getAllDecks() {
+  const defaultDataKeys = Object.keys(DefaultData);
+  const defaultValue = defaultDataKeys.map(
+      key => [key, JSON.stringify(DefaultData[key])]);
 
-export async function getAll(key, defaultData) {
-  try {
-    const response = await AsyncStorage.getItem(key);
+  const keys = await AsyncStorage.getAllKeys();
+  const response = await AsyncStorage.multiGet(keys);
 
-    if (response !== null) {
-      return await JSON.parse(response);
-    } else {
-      await AsyncStorage.setItem(key, JSON.stringify(defaultData));
-      return getAll(key, defaultData);
-    }
-  } catch (err) {
-    console.log(err);
+  if (response.length > 0) {
+    return response.map(storageData => JSON.parse(storageData[1]));
+  } else {
+    await AsyncStorage.multiSet(defaultValue);
+    return getAllDecks();
   }
 }
 
-export const getById = (id, getData) => getData().then(response => response[id]);
-
-export async function remove(key, id, getData) {
-  const response = await getData();
-
-  const remove = id => {
-    response[id] = undefined;
-    delete response[id];
-  };
-
-  Array.isArray(id)
-      ? id.forEach(remove)
-      : remove(id);
-
-  await AsyncStorage.setItem(key, JSON.stringify(response));
-  return await getData();
+export async function getDeck(id) {
+  const response = await AsyncStorage.getItem(id);
+  return JSON.parse(response);
 }
 
-export async function add(key, newData, getData) {
-  await AsyncStorage.mergeItem(key, newData);
-  return await getData();
+export async function removeDeck(id) {
+  await AsyncStorage.removeItem(id);
+  return id;
 }
 
-export async function edit(key, editedData, getData) {
-  const response = await getData();
-  const newData = {
-    ...response,
-    ...editedData,
+export async function removeCard(deckId, cardId) {
+  const deck = await getDeck(deckId);
+
+  deck.questions[cardId] = undefined;
+  delete deck.questions[cardId];
+
+  AsyncStorage.mergeItem(deckId, JSON.stringify(deck));
+  return deck;
+}
+
+export async function addDeck({
+                                id = (+new Date()).toString(16),
+                                title,
+                                description,
+                                questions = {},
+                              }) {
+  const newDeck = {
+    [id]: {id, title, description, questions},
   };
 
-  await AsyncStorage.setItem(key, JSON.stringify(newData));
-  return await getData();
+  await AsyncStorage.setItem(id, JSON.stringify(newDeck));
+  return newDeck;
+}
+
+export async function addcard({
+                                deckId,
+                                cardId = (+new Date()).toString(16),
+                                question,
+                                answer,
+                              }) {
+  const deck = await getDeck(deckId);
+
+  deck.questions = {
+    ...deck.questions,
+    [cardId]: {cardId, question, answer},
+  };
+
+  await AsyncStorage.mergeItem(deckId, JSON.stringify(deck));
+  return deck;
+}
+
+export async function editDeck({id, title, description}) {
+  const deck = await getDeck(id);
+
+  deck.title = title;
+  deck.description = description;
+
+  AsyncStorage.setItem(id, JSON.stringify(deck));
+  return deck;
+}
+
+export async function editCard({deckId, cardId, question, answer}) {
+  const deck = await getDeck(deckId);
+
+  deck.questions[cardId] = {
+    question,
+    answer,
+  };
+
+  AsyncStorage.mergeItem(deckId, JSON.stringify(deck));
+  return deck;
 }

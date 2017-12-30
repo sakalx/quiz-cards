@@ -4,14 +4,9 @@ function cards(state = {}, action) {
   const {card, FULFILLED} = types;
   const {type, payload = {}} = action;
 
-  const updatedData = {
-    ...state,
-    ...payload,
-  };
-
   switch (type) {
     case card.ALL + FULFILLED:
-      return updatedData;
+      return {...payload};
 
     case card.BY_ID + FULFILLED:
       return {...payload};
@@ -20,13 +15,13 @@ function cards(state = {}, action) {
       return {...payload};
 
     case card.ADD + FULFILLED:
-      return updatedData;
+      return {...payload};
 
     case card.EDIT + FULFILLED:
-      return updatedData;
+      return {...payload};
 
     case card.REMOVE + FULFILLED:
-      return updatedData;
+      return {...payload};
   }
   return state;
 }

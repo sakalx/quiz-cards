@@ -4,26 +4,21 @@ function decks(state = {}, action) {
   const {deck, FULFILLED} = types;
   const {type, payload = {}} = action;
 
-  const updatedData = {
-    ...state,
-    ...payload,
-  };
-
   switch (type) {
     case deck.ALL + FULFILLED:
-      return updatedData;
+      return {...payload};
 
     case deck.BY_ID + FULFILLED:
       return {...payload};
 
     case deck.ADD + FULFILLED:
-      return updatedData;
+      return {...payload};
 
     case deck.EDIT + FULFILLED:
-      return updatedData;
+      return {...payload};
 
     case deck.REMOVE + FULFILLED:
-      return updatedData;
+      return {...payload};
   }
   return state;
 }
