@@ -1,53 +1,72 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import palette from 'constants/Colors';
 import {createIconSetFromFontello, Entypo} from '@expo/vector-icons';
 import fontelloConfig from 'assets/fonts/fontello/fontello.json';
 
-import {View, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
 
+const Wrap = styled(View)`
+  align-items: center;
+  margin: 20px 0;
+`;
 const Card = styled(View)`
   position: relative;
-  align-items: center;
-  margin: 10px;
 `;
 const ActionsButton = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 5;
-  right: 5;
+  top: 20px;
+  left: 50px;
 `;
 const Badge = styled(View)`
   align-items: center;
   transform: rotate(-8deg);
   position: absolute;
-  bottom: 37%;
-  right: 22%;
+  top: 45px;
+  right: -45px;
+`;
+const BadgeTitle = styled(Text)`
+  color: ${palette.primary2Color};
 `;
 const Title = styled(Text)`
   font-size: 18;
+  color: ${palette.primary1Color};
 `;
 
 class Deck extends React.Component {
+
   pressed = () => console.log('puk');
 
   render() {
+    const {deck} = this.props;
+    const countQuestions = Object.keys(deck.questions).length;
+
     return (
-        <Card>
-          <ActionsButton onPress={this.pressed}>
-            <Entypo name='dots-three-vertical' size={24}/>
-          </ActionsButton>
-          <Badge>
-            <Text>21</Text>
-            <Text>questions</Text>
-          </Badge>
+        <Wrap>
+          <Card>
+            <ActionsButton onPress={this.pressed}>
+              <Entypo name='dots-three-vertical'
+                      size={24}
+                      color={palette.primary3Color}
+              />
+            </ActionsButton>
+            <Badge>
+              <BadgeTitle>{countQuestions}</BadgeTitle>
+              <BadgeTitle>questions</BadgeTitle>
+            </Badge>
+          </Card>
           <TouchableOpacity onPress={this.pressed}>
-            <FontelloIcon name='post-o' size={112} color='red'/>
+            <FontelloIcon name='post-o'
+                          size={112}
+                          color={palette.accent1Color}
+            />
           </TouchableOpacity>
-          <Title>Title</Title>
-        </Card>
+          <Title>{deck.title}</Title>
+        </Wrap>
     );
   }
 }
