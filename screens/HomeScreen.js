@@ -4,31 +4,86 @@
  displays the number of cards in each deck
  */
 import React from 'react';
+import {connect} from 'react-redux';
+import styled from 'styled-components/native';
+import palette from 'constants/Colors';
+import {getAllDecks} from 'redux-core/actions/decks';
 
-import {Button, Container, Content, Header, Icon, List} from 'native-base';
+import {View} from 'react-native';
+import {Col, Container, Content, Grid, List} from 'native-base';
+
+import SearchBar from '../components/SearchBar';
+import AppSpinner from 'components/AppSpinner';
 import ButtonAdd from 'components/ButtonAdd';
+import Deck from 'components/Deck';
 
+const Spiner = styled(View)`
+  backgroundColor: ${palette.bodyBackground};
+  flex: 1 
+`;
+
+@connect(store => ({store}))
 class HomeScreen extends React.Component {
-  render() {
-    const items = [64, 33, 44, 55, 66, 22, 44, 66, 55, 33, 37];
+  dispatch = this.props.dispatch;
 
+  state = {
+    ready: false,
+    decks: [],
+  };
+
+  async componentDidMount() {
+    await this.dispatch(getAllDecks());
+    this.setState({
+      ready: true,
+      decks: this.createDuoItems(),
+    });
+  }
+
+  updateListOfDecks = queryDecks =>
+      this.setState({
+        decks: this.createDuoItems(queryDecks),
+      });
+
+  createDuoItems = (decks = this.props.store) => {
+    const duoItems = [];
+
+    for (let i = 0; i < decks.length; i = i + 2) {
+      duoItems.push({
+        left: decks[i],
+        right: decks[i + 1],
+      });
+    }
+    return duoItems;
+  };
+
+  render() {
+    const {ready, decks} = this.state;
+
+    if (!ready) {
+      return (
+          <Spiner>
+            <AppSpinner/>
+          </Spiner>
+      );
+    }
     return (
         <Container>
-          <Header/>
-          <Content contentContainerStyle={{backgroundColor: '#303030', flex: 1}}>
-            {/*    <ImageBackground  style={{width: 150, height: 150}}
-             source={require('assets/images/test3.png')}>
-             <Text>Inside</Text>
-             </ImageBackground>
-             */}
-            <List dataArray={items}
-                  renderRow={(item) =>
-                      <Button large transparent>
-                        <Icon name='add-circle' style={{fontSize: item}}/>
-                      </Button>
-                  }>
-            </List>
-
+          <SearchBar updateList={this.updateListOfDecks}/>
+          <Content
+              contentContainerStyle={{backgroundColor: palette.bodyBackground, flex: 1}}>
+            <List dataArray={decks}
+                  renderRow={item =>
+                      <Grid>
+                        <Col>
+                          <Deck deck={item.left}/>
+                        </Col>
+                        {item.right &&
+                        <Col>
+                          <Deck deck={item.right}/>
+                        </Col>
+                        }
+                      </Grid>
+                  }/>
             <ButtonAdd/>
           </Content>
         </Container>
