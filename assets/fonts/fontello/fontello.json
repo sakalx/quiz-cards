@@ -8,7 +8,7 @@
   "glyphs": [
     {
       "uid": "980c16a2af61dda43c38ac9ad2c9b296",
-      "css": "post-o",
+      "css": "deck-o",
       "code": 59392,
       "src": "custom_icons",
       "selected": true,
@@ -17,12 +17,12 @@
         "width": 1000
       },
       "search": [
-        "post-o"
+        "deck-o"
       ]
     },
     {
       "uid": "10f7eb3aed700ecb22472f70754c7387",
-      "css": "post-it",
+      "css": "deck",
       "code": 59393,
       "src": "custom_icons",
       "selected": true,
@@ -31,7 +31,7 @@
         "width": 1000
       },
       "search": [
-        "post-it"
+        "deck"
       ]
     },
     {
