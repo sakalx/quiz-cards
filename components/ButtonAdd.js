@@ -24,16 +24,15 @@ const ButtonIcon = styled(Icon)`
 `;
 
 class ButtonAdd extends React.Component {
-
-  pressed = () => console.log('puk');
-
   render() {
+    const {navigate} = this.props;
+
     return (
-        <Button onPress={this.pressed}>
+        <Button onPress={() => navigate('NewDeck', {deck: {title: 'New Category'}})}>
           <ButtonIcon name='add'/>
         </Button>
-    )
+    );
   }
-};
+}
 
 export default ButtonAdd;
