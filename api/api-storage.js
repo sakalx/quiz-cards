@@ -9,6 +9,7 @@ export async function getAllDecks() {
   const keys = await AsyncStorage.getAllKeys();
   const response = await AsyncStorage.multiGet(keys);
 
+  //await AsyncStorage.multiRemove(keys);
   if (response.length > 0) {
     return response.map(storageData => JSON.parse(storageData[1]));
   } else {

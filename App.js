@@ -7,6 +7,7 @@ import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
 import {View} from 'react-native';
+import {Root} from 'native-base';
 import AppSpinner from 'components/AppSpinner';
 
 import AppNavigator from 'navigation/RootNavigation';
@@ -33,7 +34,9 @@ class App extends React.Component {
     if (this.state.fontsAreLoaded) {
       return (
           <Provider store={store}>
-            <AppNavigator/>
+            <Root>
+              <AppNavigator/>
+            </Root>
           </Provider>
       );
     } else {
