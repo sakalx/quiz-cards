@@ -23,24 +23,27 @@ const Bar = styled(Item)`
 const BarTitle = styled(Title)`
   flex: 1;
 `;
+const ArrowIcon = styled(Icon)`
+ color: ${palette.defaultColor};
+`;
+const DeckIcon = styled(FontelloIcon)`
+ color: ${palette.defaultColor};
+ font-size: 24;
+ `;
 
 class AppBar extends React.Component {
 
   render() {
-    const {goBack, state: {params: {deck}}} = this.props.navigation;
+    const {navigate, state: {params: {deck}}} = this.props.navigation;
 
     return (
-        <Wrap>
+        <Wrap searchBar>
           <Bar>
-            <TouchableOpacity onPress={() => goBack()}>
-              <Icon name='arrow-back'
-                    style={{color: palette.defaultColor}}/>
+            <TouchableOpacity onPress={() => navigate('Home')}>
+              <ArrowIcon name='arrow-back'/>
             </TouchableOpacity>
             <BarTitle>{deck.title}</BarTitle>
-            <FontelloIcon name='post-o'
-                          size={24}
-                          color={palette.defaultColor}
-            />
+            <DeckIcon name='deck-o'/>
           </Bar>
         </Wrap>
     );
