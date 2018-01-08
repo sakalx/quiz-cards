@@ -2,7 +2,7 @@
   "expo": {
     "sdkVersion": "24.0.0",
     "version": "1.0",
-    "name": "QuizCards",
+    "name": "Quiz",
     "description": "App for training your memory",
     "slug": "cards",
     "platforms": ["ios", "android"],
