@@ -12,15 +12,15 @@ import {getAllDecks} from 'redux-core/actions/decks';
 import {View} from 'react-native';
 import {Col, Container, Content, Grid, List} from 'native-base';
 
-import SearchBar from '../components/SearchBar';
+import SearchBar from 'components/SearchBar';
 import AppSpinner from 'components/AppSpinner';
 import ButtonAdd from 'components/ButtonAdd';
 import Deck from 'components/Deck';
 
-const Spiner = styled(View)`
-  backgroundColor: ${palette.bodyBackground};
-  flex: 1 
-`;
+const Spinner = styled(View)`
+ backgroundColor: ${palette.bodyBackground};
+ flex: 1 
+ `;
 
 @connect(store => ({store}))
 class HomeScreen extends React.Component {
@@ -32,12 +32,22 @@ class HomeScreen extends React.Component {
   };
 
   async componentDidMount() {
+    this.props.navigation.setParams({handleSearch: this.updateListOfDecks});
+
     await this.dispatch(getAllDecks());
     this.setState({
       ready: true,
       decks: this.createDuoItems(),
     });
+
   }
+
+  static navigationOptions = ({navigation}) => {
+    const {params} = navigation.state;
+    const header = <SearchBar updateList={params && params.handleSearch}/>;
+
+    return {header};
+  };
 
   updateListOfDecks = queryDecks =>
       this.setState({
@@ -58,33 +68,33 @@ class HomeScreen extends React.Component {
 
   render() {
     const {ready, decks} = this.state;
+    const {navigate} = this.props.navigation;
 
     if (!ready) {
       return (
-          <Spiner>
+          <Spinner>
             <AppSpinner/>
-          </Spiner>
+          </Spinner>
       );
     }
     return (
         <Container>
-          <SearchBar updateList={this.updateListOfDecks}/>
           <Content
               contentContainerStyle={{backgroundColor: palette.bodyBackground, flex: 1}}>
             <List dataArray={decks}
                   renderRow={item =>
                       <Grid>
                         <Col>
-                          <Deck deck={item.left}/>
+                          <Deck deck={item.left} navigate={navigate}/>
                         </Col>
                         {item.right &&
                         <Col>
-                          <Deck deck={item.right}/>
+                          <Deck deck={item.right} navigate={navigate}/>
                         </Col>
                         }
                       </Grid>
                   }/>
-            <ButtonAdd/>
+            <ButtonAdd navigate={navigate}/>
           </Content>
         </Container>
     );
