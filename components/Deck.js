@@ -36,13 +36,17 @@ const Title = styled(Text)`
   font-size: 18;
   color: ${palette.primary1Color};
 `;
+ const DeckIcon = styled(FontelloIcon)`
+ color: ${palette.accent1Color};
+ font-size: 112;
+ `;
 
 class Deck extends React.Component {
-
-  pressed = () => console.log('puk');
+ 
+  pressed = () => console.log('you wish ;)');
 
   render() {
-    const {deck} = this.props;
+    const {deck, navigate} = this.props;
     const countQuestions = Object.keys(deck.questions).length;
 
     return (
@@ -59,11 +63,8 @@ class Deck extends React.Component {
               <BadgeTitle>questions</BadgeTitle>
             </Badge>
           </Card>
-          <TouchableOpacity onPress={this.pressed}>
-            <FontelloIcon name='post-o'
-                          size={112}
-                          color={palette.accent1Color}
-            />
+          <TouchableOpacity onPress={() => navigate('Quiz', {deck})}>
+            <DeckIcon name='deck-o'/>
           </TouchableOpacity>
           <Title>{deck.title}</Title>
         </Wrap>
