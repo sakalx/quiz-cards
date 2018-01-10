@@ -28,7 +28,7 @@ class ButtonAdd extends React.Component {
     const {navigate} = this.props;
 
     return (
-        <Button onPress={() => navigate('NewDeck', {deck: {title: 'New Category'}})}>
+        <Button onPress={() => navigate('UpdateDeck')}>
           <ButtonIcon name='add'/>
         </Button>
     );
