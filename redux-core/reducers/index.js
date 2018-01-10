@@ -1,5 +1,28 @@
-import {combineReducers} from 'redux';
-import decks from './decks';
-import cards from './cards';
+import types from '../actions/types';
 
-export default combineReducers({decks, cards});
+function decks(state = [], action) {
+  const {deck, FULFILLED} = types;
+  const {type, payload} = action;
+
+  switch (type) {
+    case deck.ALL + FULFILLED:
+      return payload;
+
+    case deck.BY_ID + FULFILLED:
+      return payload;
+
+    case deck.ADD + FULFILLED:
+      return [...state, payload];
+
+    case deck.EDIT + FULFILLED:
+      return state.map(deck =>
+          deck.id === payload.id ? payload : deck,
+      );
+
+    case deck.REMOVE + FULFILLED:
+      return state.filter(deck => deck.id !== payload);
+  }
+  return state;
+}
+
+export default decks;
