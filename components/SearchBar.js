@@ -24,6 +24,13 @@ const SearchField = styled(Input)`
   background-color: ${palette.alternateBackground};
   color: #fff;
 `;
+const SearchIcon = styled(Icon)`
+ color: ${palette.defaultColor};
+`;
+const DeckIcon = styled(FontelloIcon)`
+ color: ${palette.defaultColor};
+ font-size: 24;
+ `;
 
 @connect(store => ({store}))
 class SearchBar extends React.Component {
@@ -41,16 +48,11 @@ class SearchBar extends React.Component {
     return (
         <Wrap searchBar rounded>
           <Bar>
-            <Icon name="ios-search"
-                  style={{color: palette.defaultColor}}
-            />
+            <SearchIcon name="ios-search"/>
             <SearchField placeholder="Search"
                          onChangeText={text => this.handelSearch(text)}
             />
-            <FontelloIcon name='post-it'
-                          size={24}
-                          color={palette.defaultColor}
-            />
+            <DeckIcon name='deck'/>
           </Bar>
         </Wrap>
     );
