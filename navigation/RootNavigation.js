@@ -2,12 +2,12 @@ import {StackNavigator} from 'react-navigation';
 
 import HomeScreen from 'screens/HomeScreen';
 import QuizScreen from 'screens/QuizScreen';
-import NewDeckScreen from 'screens/NewDeckScreen';
+import UpdateDeckScreen from 'screens/UpdateDeckScreen';
 
 const AppNavigator = StackNavigator({
   Home: {screen: HomeScreen},
   Quiz: {screen: QuizScreen},
-  NewDeck: {screen: NewDeckScreen},
+  UpdateDeck: {screen: UpdateDeckScreen},
 });
 
 export default AppNavigator
