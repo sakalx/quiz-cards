@@ -20,7 +20,7 @@ const Button = styled(TouchableOpacity)`
 
 const ButtonIcon = styled(Icon)`
   fontSize: 48;
-  color: #fff;
+  color: ${palette.defaultColor};
 `;
 
 class ButtonAdd extends React.Component {
