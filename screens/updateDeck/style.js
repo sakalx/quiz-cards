@@ -10,6 +10,7 @@ import {
   Container,
   Icon,
   Item,
+  List,
   ListItem,
   Tab,
   Tabs,
@@ -47,7 +48,6 @@ export const Wrap = styled(Container)`
 	background-color: ${palette.bodyBackground};
 	justify-content: flex-end;
 `;
-
 export const TabsView = styled(Tabs)`
 	padding-top: ${Constants.statusBarHeight};
 `;
@@ -58,9 +58,12 @@ export const InputWrap = styled(Item)`
   padding-left: 10px;
   padding-right: 70px;
 `;
+export const ListView = styled(List)`
+  margin-bottom: 67;
+`;
 export const ListItemView = styled(ListItem)`
 background-color: ${palette.bodyBackground};
-  `;
+`;
 export const Question = styled(Text)`
   width: 90%;
   color: ${palette.primary2Color};
@@ -83,6 +86,13 @@ export const SelectAnswerView = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
+`;
+export const SelectAnswerText = styled(Text)`
+  color: ${palette.accent3Color};
+  text-align: center;
+`;
+export const SelectAnswerSubText = styled(Text)`
+  color: ${palette.defaultColor};
 `;
 export const AnswerButtons = styled(View)`
   width: 100%;
