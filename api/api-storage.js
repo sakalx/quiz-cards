@@ -38,19 +38,25 @@ export async function removeCard(deckId, cardId) {
   return deck;
 }
 
+
+
+
 export async function addDeck({
                                 id = (+new Date()).toString(16),
                                 title,
-                                description,
-                                questions = {},
+                                questions,
                               }) {
   const newDeck = {
-    [id]: {id, title, description, questions},
+    id, title, questions,
   };
 
   await AsyncStorage.setItem(id, JSON.stringify(newDeck));
   return newDeck;
 }
+
+
+
+
 
 export async function addcard({
                                 deckId,
@@ -69,6 +75,9 @@ export async function addcard({
   return deck;
 }
 
+
+
+
 export async function editDeck({id, title, description}) {
   const deck = await getDeck(id);
 
@@ -78,6 +87,9 @@ export async function editDeck({id, title, description}) {
   AsyncStorage.setItem(id, JSON.stringify(deck));
   return deck;
 }
+
+
+
 
 export async function editCard({deckId, cardId, question, answer}) {
   const deck = await getDeck(deckId);
