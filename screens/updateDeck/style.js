@@ -1,9 +1,9 @@
-import React from 'react';
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 import {Constants} from 'expo';
 import {createIconSetFromFontello} from '@expo/vector-icons';
 import fontelloConfig from 'assets/fonts/fontello/fontello.json';
+
 import {TouchableOpacity} from 'react-native';
 import {
   Button,
@@ -15,7 +15,7 @@ import {
   Tab,
   Tabs,
   Text,
-  View
+  View,
 } from 'native-base';
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
@@ -48,6 +48,10 @@ export const Wrap = styled(Container)`
 	background-color: ${palette.bodyBackground};
 	justify-content: flex-end;
 `;
+export const SelectColoRTitle = styled(Text)`
+	color: ${palette.primary2Color};
+  margin: 15px;
+`;
 export const TabsView = styled(Tabs)`
 	padding-top: ${Constants.statusBarHeight};
 `;
@@ -64,9 +68,14 @@ export const ListView = styled(List)`
 export const ListItemView = styled(ListItem)`
 background-color: ${palette.bodyBackground};
 `;
-export const Question = styled(Text)`
+export const QuestionView = styled(View)`
   width: 90%;
+`;
+export const Question = styled(Text)`
   color: ${palette.primary2Color};
+`;
+export const Answer = styled(Text)`
+  color: ${palette.primary3Color};
 `;
 export const AddButton = styled(TouchableOpacity)`
   align-items: center;
@@ -128,4 +137,34 @@ export const LogoIcon = styled(FontelloIcon)`
   position: absolute;
   bottom: 0;
   left: 0;
+ `;
+ export const DeckTabView = styled(View)`
+  margin-bottom: 132;
+ `;
+ export const DeckButton = styled(TouchableOpacity)`
+  position: relative;
+`;
+export const DeckIcon = styled(FontelloIcon)`
+  fontSize: 82;
+  margin: 15px;
+ `;
+ export const CheckIcon = styled(Icon)`
+  position: absolute;
+  top: 45;
+  left: 47;
+  color: ${palette.defaultColor};
+  font-size: 38;
+  transform: rotate(-8deg);
+ `;
+export const SnackContent = styled(View)`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+ `;
+ export const TittleCancel = styled(Text)`
+  color: ${palette.primary3Color};
+ `
+export const TittleDelete = styled(Text)`
+  color: ${palette.accent2Color};
  `;

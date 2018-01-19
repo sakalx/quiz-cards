@@ -1,120 +1,88 @@
 import React from 'react';
-import palette from 'constants/Colors';
-
+import {connect} from 'react-redux';
+import * as api from 'api/api-storage';
+import {hideSnack, showSnack} from 'redux-core/actions/snack';
+import palette, {deckTheme} from 'constants/Colors';
+// Components
 import Modal from 'react-native-modal';
-import {TouchableOpacity} from 'react-native';
+import {FlatList, TouchableOpacity} from 'react-native';
 import {Footer, FooterTab, Form, Icon, Input, Label, Text, View} from 'native-base';
-
+import AppSnack from 'components/snack/AppSnack';
 
 import {
   AddButton,
   AddButtonTitle,
+  Answer,
   AnswerButtons,
   ButtonTitle,
+  CheckIcon,
+  DeckButton,
+  DeckIcon,
+  DeckTabView,
   EditIcon,
   FooterButton,
   HomeIcon,
   InputWrap,
-  ListView,
   ListItemView,
+  ListView,
   LogoIcon,
   Question,
-  SelectAnswerView,
-  SelectAnswerText,
+  QuestionView,
   SelectAnswerSubText,
+  SelectAnswerText,
+  SelectAnswerView,
+  SelectColoRTitle,
+  SnackContent,
   tab,
   TabsView,
   TabView,
+  TittleCancel,
+  TittleDelete,
   TrashIcon,
   Wrap
 } from './style.js';
 
-import * as api from 'api/api-storage';
+@connect(store => ({store}))
 
 class UpdateDeckScreen extends React.Component {
-
+  dispatch = this.props.dispatch;
   state = {
+    colorSelected: palette.defaultColor,
     questionId: null,
-
-    questions: {
-      cardID1: {
-        id: 'cardID1',
-        question: 'is React a so good?',
-        answer: true,
-      },
-      cardID2: {
-        id: 'cardID2',
-        question: 'is Ajax requests in React? is Ajax requests in React? is Ajax requests in React? is Ajax requests in React? is Ajax requests in React?333333333333333333',
-        answer: true,
-      },
-        cardID4: {
-        id: 'cardID4',
-        question: 'is React a so good?',
-        answer: true,
-      },
-        cardID5: {
-        id: 'cardID5',
-        question: 'is React a so good?',
-        answer: true,
-      },
-    },
-
-    validation: {
-      inputDeck: null,
-      inputQuestion: null,
-    },
-
+    questions: {},
+    inputDeck: null,
+    inputQuestion: null,
     selectAnswer: false,
   };
 
   static navigationOptions = {header: null};
 
   handelInput = ({value, fieldName}) => {
-    const {validation} = this.state;
     const valueNormalized = value.trim();
+    const setInputValue = value => this.setState({[fieldName]: value});
 
-    if (valueNormalized) {
-      this.setState({
-        validation: {
-          ...validation,
-          [fieldName]: valueNormalized,
-        },
-      });
-    } else {
-      this.setState({
-        validation: {
-          ...validation,
-          [fieldName]: null,
-        },
-      });
-    }
+    valueNormalized ? setInputValue(valueNormalized) : setInputValue(null);
   };
 
-  handelAddQuestion = () => {
-    const {questionId, validation, validation: {inputQuestion}} = this.state;
+  handelSelectAnswer = () => {
+    const {inputQuestion} = this.state;
 
-   if (inputQuestion) {
-    this.setState({
-      
-      selectAnswer: true,
-    })
-  } else {
-    this.setState({
-      validation: {
-        ...validation,
-        inputQuestion: !!inputQuestion
-      },
-    })
-  }
-};
+    inputQuestion
+        ? this.setState({selectAnswer: true})
+        : this.setState({inputQuestion: false}); //!!inputQuestion
+  };
 
-  handelSelectAnswer = answer => {
-    const {questionId, questions, validation, validation: {inputQuestion}} = this.state;
+  handelAddQuestion = answer => {
+    const {questionId, questions, inputQuestion} = this.state;
     const newId = (+new Date()).toString(16);
     const id = questionId || newId;
+    const SnackMsg =
+        <Text>
+          successfully {questionId ? 'UPDATED' : 'ADDED'}
+        </Text>;
 
+    this.dispatch(showSnack({content: SnackMsg}));
     this.setState({
-      questionId: null,
       questions: {
         ...questions,
         [id]: {
@@ -123,55 +91,55 @@ class UpdateDeckScreen extends React.Component {
           question: inputQuestion,
         },
       },
+      questionId: null,
       selectAnswer: false,
-      validation: {
-           ...validation, 
-        inputQuestion: null,
-      }
+      inputQuestion: null,
     });
-
   };
 
+  handelRemoveQuestion = id => {
+    const {questions} = this.state;
+    const remove = () => {
+      delete questions[id];
+      this.setState({questions});
+      this.dispatch(hideSnack());
+    };
+    const SnackMsg = <SnackContent>
+      <Text>question will be deleted</Text>
+      <TouchableOpacity onPress={() => this.dispatch(hideSnack())}>
+        <TittleCancel>CANCEL</TittleCancel>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={remove}>
+        <TittleDelete>OK</TittleDelete>
+      </TouchableOpacity>
+    </SnackContent>;
 
-handelRemoveQuestion = id => {
-  const {questions} = this.state;
+    this.dispatch(showSnack({duration: null, content: SnackMsg}));
+  };
 
-  delete questions[id];
-  this.setState({questions})
-};
+  handelEditQuestion = id => {
+    const {questions} = this.state;
 
-handelEditQuestion = id => {
- const {questions, validation,  validation: {inputQuestion}} = this.state;
-
-
- this.setState({
-  questionId: id,
-  validation: {
-    ...validation,
-    inputQuestion: questions[id].question,
-  }
- })
-};
-
+    this.setState({
+      questionId: id,
+      inputQuestion: questions[id].question,
+    });
+  };
 
   handelSave = () => {
-    const {questions, validation: {inputDeck, inputQuestion}} = this.state;
+    const {colorSelected, questions, inputDeck, inputQuestion} = this.state;
     const hasQuestions = Object.keys(questions).length;
 
     if (inputDeck && hasQuestions) {
       const {navigation: {navigate}} = this.props;
       // show toast
-    
-
-      api.addDeck({title:inputDeck, questions});
+      api.addDeck({title: inputDeck, iconColor: colorSelected, questions});
       navigate('Home');
     } else {
       this.setState({
-        validation: {
-          inputDeck: !inputDeck ? false : inputDeck,
-          inputQuestion: !hasQuestions ? false : inputQuestion,
-        }
-      })
+        inputDeck: !inputDeck ? false : inputDeck,
+        inputQuestion: !hasQuestions ? false : inputQuestion,
+      });
     }
   };
 
@@ -199,12 +167,11 @@ handelEditQuestion = id => {
             <Input style={{color: palette.primary1Color}}
                    onChangeText={value => callBack({value, fieldName})}
                    value={fieldValue || ''}
-                   />
-
-            {fieldValue !== null 
+            />
+            {fieldValue !== null
                 ? (!!fieldValue)
                     ? <Icon name='checkmark-circle'/>
-                    : <Icon name='close-circle'/>
+                    : <Icon name='warning'/>
                 : <Icon name='create' style={{color: palette.primary3Color}}/>
             }
           </InputWrap>
@@ -213,14 +180,8 @@ handelEditQuestion = id => {
   };
 
   render() {
-    const {navigation: {navigate}} = this.props;
-
-    const {
-      questionId,
-      questions,
-      selectAnswer,
-      validation: {inputDeck, inputQuestion},
-    } = this.state;
+    const {navigation: {goBack}} = this.props;
+    const {colorSelected, questionId, questions, inputDeck, inputQuestion, selectAnswer} = this.state;
 
     const questionsKeys = Object.keys(questions);
     const questionsArr = questionsKeys.map(key => questions[key]);
@@ -233,12 +194,41 @@ handelEditQuestion = id => {
             {this.renderTab({
               title: 'DECK',
               fieldValue: inputDeck,
-              content: this.renderInput({
-                label: 'Name of Deck',
-                fieldName: 'inputDeck',
-                fieldValue: inputDeck,
-                callBack: this.handelInput,
-              }),
+              content: <DeckTabView>
+                {this.renderInput({
+                  label: 'Name of Deck',
+                  fieldName: 'inputDeck',
+                  fieldValue: inputDeck,
+                  callBack: this.handelInput,
+                })}
+                <SelectColoRTitle>
+                  {colorSelected === palette.defaultColor
+                      ? 'Select Theme'
+                      : `Deck Theme: ${deckTheme[colorSelected]}`
+                  }
+
+                </SelectColoRTitle>
+
+                <FlatList
+                    data={Object.keys(deckTheme)}
+                    renderItem={({item: color}) => (
+                        <DeckButton onPress={() => this.setState({colorSelected: color})}>
+                          <DeckIcon name='deck' color={color}/>
+                          {colorSelected === color &&
+                          <CheckIcon name='checkbox'/>
+                          }
+
+                        </DeckButton>
+                    )
+
+                    }
+                    keyExtractor={item => item}
+                    numColumns={3}
+                    horizontal={false}
+
+                />
+
+              </DeckTabView>,
             })
             }
             {this.renderTab({
@@ -251,29 +241,33 @@ handelEditQuestion = id => {
                   fieldValue: inputQuestion,
                   callBack: this.handelInput,
                 })
-                } 
-                <AddButton onPress={this.handelAddQuestion}>
+                }
+                <AddButton onPress={this.handelSelectAnswer}>
                   <AddButtonTitle>
                     {questionId ? 'EDIT' : 'ADD'}
-                   </AddButtonTitle>
+                  </AddButtonTitle>
                 </AddButton>
                 <ListView
-                      dataArray={questionsArr}
-                      renderRow={(item) =>
+                    dataArray={questionsArr}
+                    renderRow={(item) =>
                         <ListItemView>
-                          <Question>{item.question}</Question>
+                          <QuestionView>
+                            <Question>{item.question}</Question>
+                            <Answer>{item.answer.toString()}</Answer>
+                          </QuestionView>
                           <View>
-                            <TouchableOpacity onPress={() => this.handelEditQuestion(item.id)}>
+                            <TouchableOpacity
+                                onPress={() => this.handelEditQuestion(item.id)}>
                               <EditIcon name='edit'/>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.handelRemoveQuestion(item.id)}>
+                            <TouchableOpacity
+                                onPress={() => this.handelRemoveQuestion(item.id)}>
                               <TrashIcon name='trash'/>
                             </TouchableOpacity>
                           </View>
                         </ListItemView>
                     }>
                 </ListView>
-
                 <Modal isVisible={selectAnswer}
                        animationIn={'slideInLeft'}
                        animationOut={'slideOutRight'}
@@ -286,14 +280,14 @@ handelEditQuestion = id => {
                       what should be an answer?
                     </SelectAnswerSubText>
                     <AnswerButtons>
-                      <TouchableOpacity onPress={() => this.handelSelectAnswer(false)}>
+                      <TouchableOpacity onPress={() => this.handelAddQuestion(false)}>
                         <ButtonTitle>
                           FALSE
                         </ButtonTitle>
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => this.handelSelectAnswer(true)}>
+                      <TouchableOpacity onPress={() => this.handelAddQuestion(true)}>
                         <ButtonTitle>
-                         TRUE
+                          TRUE
                         </ButtonTitle>
                       </TouchableOpacity>
                     </AnswerButtons>
@@ -304,9 +298,9 @@ handelEditQuestion = id => {
             })
             }
           </TabsView>
-         <Footer>
+          <Footer>
             <FooterTab>
-              <FooterButton onPress={() => navigate('Home')} full>
+              <FooterButton onPress={() => goBack()} full>
                 <HomeIcon name='home'/>
               </FooterButton>
               <FooterButton onPress={this.handelSave} full>
@@ -314,7 +308,7 @@ handelEditQuestion = id => {
               </FooterButton>
             </FooterTab>
           </Footer>
-         
+          <AppSnack/>
         </Wrap>
     );
   }
