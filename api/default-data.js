@@ -2,29 +2,102 @@ export default {
   deckReactID: {
     id: 'deckReactID',
     title: 'React',
-    description: 'How good you know React',
+    iconColor: '#fff',
     questions: {
       cardID1: {
         id: 'cardID1',
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces',
+        question: 'is React a so good?',
+        answer: true,
       },
       cardID2: {
         id: 'cardID2',
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event',
+        question: 'is Ajax requests in React?',
+        answer: true,
       },
     },
   },
   deckJsID: {
     id: 'deckJsID',
     title: 'JavaScript',
-    description: 'Increase your JS skill',
+    iconColor: 'red',
     questions: {
       cardID2: {
         id: 'cardID2',
-        question: 'What is a closure?',
-        answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        question: 'closure only in JS',
+        answer: false,
+      },
+    },
+  },
+
+  deckJsID2: {
+    id: 'deckJsID',
+    title: 'JavaScript',
+    iconColor: 'red',
+    questions: {
+      cardID2: {
+        id: 'cardID2',
+         question: 'closure only in JS',
+        answer: false,
+      },
+    },
+  },
+  deckJsID3: {
+    id: 'deckJsID',
+    title: 'JavaScript',
+    iconColor: 'red',
+    questions: {
+      cardID2: {
+        id: 'cardID2',
+         question: 'closure only in JS',
+        answer: false,
+      },
+    },
+  },
+  deckJsID5: {
+    id: 'deckJsID',
+    title: 'JavaScript',
+    iconColor: 'red',
+    questions: {
+      cardID2: {
+        id: 'cardID2',
+         question: 'closure only in JS',
+        answer: false,
+      },
+    },
+  },
+  deckJsID4: {
+    id: 'deckJsID',
+    title: 'JavaScript',
+    iconColor: 'red',
+    questions: {
+      cardID2: {
+        id: 'cardID2',
+        question: 'closure only in JS',
+        answer: false,
+      },
+    },
+  },
+  deckJsID6: {
+    id: 'deckJsID',
+    title: 'JavaScript',
+    iconColor: 'gold',
+    questions: {
+      cardID2: {
+        id: 'cardID2',
+         question: 'closure only in JS',
+        answer: false,
+      },
+    },
+  },
+  deckJsID7: {
+    id: 'deckJsID',
+    title: 'JavaScript',
+    iconColor: 'green',
+    questions: {
+      cardID2: {
+        id: 'cardID2',
+         question: 'closure only in JS',
+        answer: false,
       },
     },
   },
