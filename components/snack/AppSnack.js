@@ -1,28 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {hideSnack} from 'redux-core/actions/snack';
 import {Content, Snack} from './style';
 
 @connect(store => ({store}))
 
-class AppSnack extends Component {
+class AppSnack extends React.Component {
   dispatch = this.props.dispatch;
-  // snack = this.props.store.snack;
 
-  close = () => {
-    const {duration, isVisible} = this.props.store.snack;
+  close = (duration = 0) => {
+    const {isVisible} = this.props.store.snack;
     isVisible &&
     setTimeout(() => this.dispatch(hideSnack()), duration);
   };
 
   render() {
     const {store: {snack}} = this.props;
-    this.close();
+    snack.duration && this.close(snack.duration);
 
     return (
         <Snack isVisible={snack.isVisible}
-               animationInTiming={500}
-               animationOutTiming={700}
+               onBackdropPress={() => this.close()}
+               backdropOpacity={0.3}
         >
           <Content>
             {snack.content}
