@@ -26,8 +26,8 @@ const Badge = styled(View)`
   align-items: center;
   transform: rotate(-8deg);
   position: absolute;
-  top: 45px;
-  right: -45px;
+  top: 45;
+  right: -45;
 `;
 const BadgeTitle = styled(Text)`
   color: ${palette.primary2Color};
@@ -36,13 +36,12 @@ const Title = styled(Text)`
   font-size: 18;
   color: ${palette.primary1Color};
 `;
- const DeckIcon = styled(FontelloIcon)`
- color: ${palette.accent1Color};
+const DeckIcon = styled(FontelloIcon)`
  font-size: 112;
  `;
 
 class Deck extends React.Component {
- 
+
   pressed = () => console.log('you wish ;)');
 
   render() {
@@ -64,7 +63,9 @@ class Deck extends React.Component {
             </Badge>
           </Card>
           <TouchableOpacity onPress={() => navigate('Quiz', {deck})}>
-            <DeckIcon name='deck-o'/>
+            <DeckIcon name='deck-o'
+                      color={deck.iconColor}
+            />
           </TouchableOpacity>
           <Title>{deck.title}</Title>
         </Wrap>
