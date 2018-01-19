@@ -1,13 +1,10 @@
-// TODO swiped row for delete or edit + add TOAST
-
 import React from 'react';
 import {Provider} from 'react-redux';
-import store from './redux-core/store';
+import store from 'redux-core/store';
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
 import {View} from 'react-native';
-import {Root} from 'native-base';
 import AppSpinner from 'components/AppSpinner';
 
 import AppNavigator from 'navigation/RootNavigation';
@@ -34,9 +31,7 @@ class App extends React.Component {
     if (this.state.fontsAreLoaded) {
       return (
           <Provider store={store}>
-            <Root>
-              <AppNavigator/>
-            </Root>
+            <AppNavigator/>
           </Provider>
       );
     } else {
