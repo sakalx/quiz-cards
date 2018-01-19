@@ -12,3 +12,21 @@ export default {
   accent3Color: '#ff80ab',
   defaultColor: '#fff',
 };
+
+export const deckTheme = {
+  '#ff9800': 'Orange Peel',
+  '#f2bcfb': 'Mauve',
+  '#eaf651': 'Starship',
+  '#ad074a': 'Lipstick',
+  '#8a2e71': 'Plum',
+  '#7db9b3': 'Neptune',
+  '#ffd490': 'Grandis',
+  '#800000': 'Maroon',
+  '#c0c0c0': 'Silver',
+  '#db1a92': 'Red Violet',
+  '#0399d3': 'Cerulean',
+  '#2abe3d': 'Forest Green',
+  '#00326e': 'Midnight Blue',
+  '#ffd700': 'Gold',
+  '#ddf7be': 'Gossip',
+};
