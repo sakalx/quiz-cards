@@ -17,13 +17,6 @@ export const getDeck = id => {
   };
 };
 
-export const addDeck = newDeck => {
-  return {
-    type: deck.ADD,
-    payload: api.addDeck(newDeck), // {new Deck}
-  };
-};
-
 export const removeDeck = id => {
   return {
     type: deck.REMOVE,
