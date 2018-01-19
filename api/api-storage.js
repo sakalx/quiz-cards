@@ -38,20 +38,16 @@ export async function removeCard(deckId, cardId) {
   return deck;
 }
 
-
-
-
 export async function addDeck({
                                 id = (+new Date()).toString(16),
                                 title,
                                 questions,
+                                iconColor,
                               }) {
   const newDeck = {
-    id, title, questions,
+    id, title, questions, iconColor,
   };
-
   await AsyncStorage.setItem(id, JSON.stringify(newDeck));
-  return newDeck;
 }
 
 
