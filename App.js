@@ -4,6 +4,7 @@ import store from 'redux-core/store';
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
+import {MenuProvider} from 'react-native-popup-menu';
 import {View} from 'react-native';
 import AppSpinner from 'components/AppSpinner';
 
@@ -31,7 +32,9 @@ class App extends React.Component {
     if (this.state.fontsAreLoaded) {
       return (
           <Provider store={store}>
-            <AppNavigator/>
+            <MenuProvider>
+              <AppNavigator/>
+            </MenuProvider>
           </Provider>
       );
     } else {
