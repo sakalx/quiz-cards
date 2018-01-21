@@ -36,7 +36,7 @@ const DeckIcon = styled(FontelloIcon)`
 class SearchBar extends React.Component {
 
   handelSearch = query => {
-    const decks = this.props.store;
+    const decks = this.props.store.decks;
 
     const queryDecks = decks.filter(deck =>
         new RegExp('\\b' + query, 'gi').test(deck.title));
