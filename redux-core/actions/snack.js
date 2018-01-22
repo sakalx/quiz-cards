@@ -2,8 +2,7 @@ import types from './types';
 
 const {snack} = types;
 
-export const showSnack = ({duration = 1500, content} = {}) => {
-
+export const showSnack = ({duration = 1200, content} = {}) => {
   return {
     type: snack.SHOW,
     payload: {duration, content},
