@@ -5,9 +5,12 @@ import {hideSnack, showSnack} from 'redux-core/actions/snack';
 import palette, {deckTheme} from 'constants/Colors';
 // Components
 import Modal from 'react-native-modal';
+
+import Actions from 'components/popup/dropdown-actions/Actions'
+
 import {FlatList, TouchableOpacity} from 'react-native';
 import {Footer, FooterTab, Form, Icon, Input, Label, Text, View} from 'native-base';
-import AppSnack from 'components/snack/AppSnack';
+import Snack from 'components/popup/snack/Snack';
 
 import {
   AddButton,
@@ -61,7 +64,7 @@ class UpdateDeckScreen extends React.Component {
     const valueNormalized = value.trim();
     const setInputValue = value => this.setState({[fieldName]: value});
 
-    valueNormalized ? setInputValue(valueNormalized) : setInputValue(null);
+    valueNormalized ? setInputValue(value) : setInputValue(null);
   };
 
   handelSelectAnswer = () => {
@@ -78,10 +81,13 @@ class UpdateDeckScreen extends React.Component {
     const id = questionId || newId;
     const SnackMsg =
         <Text>
-          successfully {questionId ? 'UPDATED' : 'ADDED'}
+          successfully {questionId ? 'update' : 'added'}
         </Text>;
 
-    this.dispatch(showSnack({content: SnackMsg}));
+this.dispatch(showSnack({content: SnackMsg}));
+
+
+
     this.setState({
       questions: {
         ...questions,
@@ -114,7 +120,7 @@ class UpdateDeckScreen extends React.Component {
       </TouchableOpacity>
     </SnackContent>;
 
-    this.dispatch(showSnack({duration: null, content: SnackMsg}));
+    this.dispatch(showSnack({duration: 3000, content: SnackMsg}));
   };
 
   handelEditQuestion = id => {
@@ -181,6 +187,9 @@ class UpdateDeckScreen extends React.Component {
 
   render() {
     const {navigation: {goBack}} = this.props;
+
+
+
     const {colorSelected, questionId, questions, inputDeck, inputQuestion, selectAnswer} = this.state;
 
     const questionsKeys = Object.keys(questions);
@@ -255,16 +264,18 @@ class UpdateDeckScreen extends React.Component {
                             <Question>{item.question}</Question>
                             <Answer>{item.answer.toString()}</Answer>
                           </QuestionView>
-                          <View>
-                            <TouchableOpacity
-                                onPress={() => this.handelEditQuestion(item.id)}>
-                              <EditIcon name='edit'/>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => this.handelRemoveQuestion(item.id)}>
-                              <TrashIcon name='trash'/>
-                            </TouchableOpacity>
-                          </View>
+
+
+                         
+
+                           <Actions actions={{
+                            edit: () => this.handelEditQuestion(item.id),
+                            remove: () => this.handelRemoveQuestion(item.id)
+                          }} />
+                        
+                          
+
+
                         </ListItemView>
                     }>
                 </ListView>
@@ -308,7 +319,7 @@ class UpdateDeckScreen extends React.Component {
               </FooterButton>
             </FooterTab>
           </Footer>
-          <AppSnack/>
+          <Snack/>
         </Wrap>
     );
   }

@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
 import {TouchableOpacity} from 'react-native';
-
 import {Icon} from 'native-base';
 
 const Button = styled(TouchableOpacity)`

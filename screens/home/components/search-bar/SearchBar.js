@@ -41,7 +41,7 @@ class SearchBar extends React.Component {
     const queryDecks = decks.filter(deck =>
         new RegExp('\\b' + query, 'gi').test(deck.title));
 
-    this.props.updateList(queryDecks);
+   this.props.updateList(queryDecks);
   };
 
   render() {

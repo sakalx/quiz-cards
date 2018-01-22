@@ -4,24 +4,40 @@ import palette from 'constants/Colors';
 import {createIconSetFromFontello, Entypo} from '@expo/vector-icons';
 import fontelloConfig from 'assets/fonts/fontello/fontello.json';
 
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, Form, Picker, Item} from 'react-native';
+import {Menu,MenuOptions,MenuOption,  MenuTrigger} from 'react-native-popup-menu';
+import {Icon} from 'native-base';
+
+import Actions from 'components/popup/dropdown-actions/Actions'
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
 
+
+ const EditIcon = styled(FontelloIcon)`
+ color: ${palette.primary1Color};
+ font-size: 26;
+ margin: 10px;
+ `;
+const TrashIcon = styled(Icon)`
+ color: ${palette.accent2Color};
+ font-size: 26;
+ margin: 10px;
+ `;
+
+
+
 const Wrap = styled(View)`
   align-items: center;
-  margin: 20px 0;
+  margin: 20px 30px;
 `;
 const Card = styled(View)`
   position: relative;
 `;
-const ActionsButton = styled(TouchableOpacity)`
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 20px;
-  left: 50px;
-`;
+const menu = {
+  position: 'absolute',
+   top: 20, 
+   left: 55
+};
 const Badge = styled(View)`
   align-items: center;
   transform: rotate(-8deg);
@@ -41,9 +57,6 @@ const DeckIcon = styled(FontelloIcon)`
  `;
 
 class Deck extends React.Component {
-
-  pressed = () => console.log('you wish ;)');
-
   render() {
     const {deck, navigate} = this.props;
     const countQuestions = Object.keys(deck.questions).length;
@@ -51,17 +64,13 @@ class Deck extends React.Component {
     return (
         <Wrap>
           <Card>
-            <ActionsButton onPress={this.pressed}>
-              <Entypo name='dots-three-vertical'
-                      size={24}
-                      color={palette.primary3Color}
-              />
-            </ActionsButton>
+           <Actions style={menu}/>
             <Badge>
               <BadgeTitle>{countQuestions}</BadgeTitle>
               <BadgeTitle>questions</BadgeTitle>
             </Badge>
           </Card>
+
           <TouchableOpacity onPress={() => navigate('Quiz', {deck})}>
             <DeckIcon name='deck-o'
                       color={deck.iconColor}

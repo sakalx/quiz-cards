@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
-import AppBar from 'components/AppBar';
+import AppBar from 'components/app-bar/AppBar';
 import ScoreCard from 'components/ScoreCard';
 import {Button, Card, Container, Footer, FooterTab, Icon, Text, View} from 'native-base';
 
@@ -140,10 +140,10 @@ class QuizScreen extends React.Component {
                   {this.renderAnswerIcon(answerIcon)}
                 </AnswerLayout>
                 : <FooterTab>
-                  <ButtonLayout full onPress={() => this.handelAnswer(false)}>
+                  <ButtonLayout onPress={() => this.handelAnswer(false)} full>
                     <ButtonTitle>uncorrected</ButtonTitle>
                   </ButtonLayout>
-                  <ButtonLayout full onPress={() => this.handelAnswer(true)}>
+                  <ButtonLayout onPress={() => this.handelAnswer(true)} full>
                     <ButtonTitle>corrected</ButtonTitle>
                   </ButtonLayout>
                 </FooterTab>
