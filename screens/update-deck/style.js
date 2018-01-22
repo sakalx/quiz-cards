@@ -15,7 +15,7 @@ import {
   Tab,
   Tabs,
   Text,
-  View,
+  View
 } from 'native-base';
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
@@ -48,35 +48,45 @@ export const Wrap = styled(Container)`
 	background-color: ${palette.bodyBackground};
 	justify-content: flex-end;
 `;
+
 export const SelectColoRTitle = styled(Text)`
 	color: ${palette.primary2Color};
   margin: 15px;
 `;
+
 export const TabsView = styled(Tabs)`
 	padding-top: ${Constants.statusBarHeight};
 `;
+
 export const TabView = styled(Tab)`
 	background-color: ${palette.bodyBackground};
 `;
+
 export const InputWrap = styled(Item)`
   padding-left: 10px;
   padding-right: 70px;
 `;
+
 export const ListView = styled(List)`
   margin-bottom: 67;
 `;
+
 export const ListItemView = styled(ListItem)`
 background-color: ${palette.bodyBackground};
 `;
+
 export const QuestionView = styled(View)`
   width: 90%;
 `;
+
 export const Question = styled(Text)`
   color: ${palette.primary2Color};
 `;
+
 export const Answer = styled(Text)`
   color: ${palette.primary3Color};
 `;
+
 export const AddButton = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
@@ -87,50 +97,61 @@ export const AddButton = styled(TouchableOpacity)`
   height: 30;
   background-color:  ${palette.primary1Color};
 `;
+
 export const AddButtonTitle = styled(Text)`
   font-size: 12;
   padding: 0;
 `;
+
 export const SelectAnswerView = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
 `;
+
 export const SelectAnswerText = styled(Text)`
   color: ${palette.accent3Color};
   text-align: center;
 `;
+
 export const SelectAnswerSubText = styled(Text)`
   color: ${palette.defaultColor};
 `;
+
 export const AnswerButtons = styled(View)`
   width: 100%;
   margin: 25px;
   flex-direction: row;
   justify-content: space-around;
 `;
+
 export const FooterButton = styled(Button)`
  flex-direction: row;
  background-color: ${palette.alternateBackground};
  `;
+
 export const ButtonTitle = styled(Text)`
  color: ${palette.primary1Color};
  font-size: 16;
  `;
+
 export const HomeIcon = styled(Icon)`
  color: ${palette.primary1Color};
  font-size: 28;
  `;
+
 export const TrashIcon = styled(Icon)`
  color: ${palette.accent2Color};
  font-size: 26;
  margin: 10px;
  `;
+
 export const EditIcon = styled(FontelloIcon)`
  color: ${palette.primary1Color};
  font-size: 26;
  margin: 10px;
  `;
+
 export const LogoIcon = styled(FontelloIcon)`
   color: ${palette.primary3Color};
   fontSize: 112;
@@ -138,17 +159,21 @@ export const LogoIcon = styled(FontelloIcon)`
   bottom: 0;
   left: 0;
  `;
- export const DeckTabView = styled(View)`
+
+export const DeckTabView = styled(View)`
   margin-bottom: 132;
  `;
- export const DeckButton = styled(TouchableOpacity)`
+
+export const DeckButton = styled(TouchableOpacity)`
   position: relative;
 `;
+
 export const DeckIcon = styled(FontelloIcon)`
   fontSize: 82;
   margin: 15px;
  `;
- export const CheckIcon = styled(Icon)`
+
+export const CheckIcon = styled(Icon)`
   position: absolute;
   top: 45;
   left: 47;
@@ -156,15 +181,18 @@ export const DeckIcon = styled(FontelloIcon)`
   font-size: 38;
   transform: rotate(-8deg);
  `;
+
 export const SnackContent = styled(View)`
   width: 100%;
   flex-direction: row;
   justify-content: space-around;
   padding: 10px;
  `;
- export const TittleCancel = styled(Text)`
+
+export const TittleCancel = styled(Text)`
   color: ${palette.primary3Color};
- `
+ `;
+
 export const TittleDelete = styled(Text)`
   color: ${palette.accent2Color};
  `;
