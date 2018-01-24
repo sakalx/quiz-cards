@@ -4,11 +4,11 @@ import store from 'redux-core/store';
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
-import {MenuProvider} from 'react-native-popup-menu';
 import {View} from 'react-native';
-import AppSpinner from 'components/AppSpinner';
+import {MenuProvider} from 'react-native-popup-menu';
 
 import AppNavigator from 'navigation/RootNavigation';
+import AppSpinner from 'components/spiner/AppSpinner';
 
 const Spinner = styled(View)`
  backgroundColor: ${palette.bodyBackground};
@@ -29,21 +29,20 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.fontsAreLoaded) {
-      return (
-          <Provider store={store}>
-            <MenuProvider>
-              <AppNavigator/>
-            </MenuProvider>
-          </Provider>
-      );
-    } else {
+    if (!this.state.fontsAreLoaded) {
       return (
           <Spinner>
             <AppSpinner/>
           </Spinner>
       );
     }
+    return (
+        <Provider store={store}>
+          <MenuProvider>
+            <AppNavigator/>
+          </MenuProvider>
+        </Provider>
+    );
   }
 }
 
