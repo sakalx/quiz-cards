@@ -140,18 +140,6 @@ export const HomeIcon = styled(Icon)`
  font-size: 28;
  `;
 
-export const TrashIcon = styled(Icon)`
- color: ${palette.accent2Color};
- font-size: 26;
- margin: 10px;
- `;
-
-export const EditIcon = styled(FontelloIcon)`
- color: ${palette.primary1Color};
- font-size: 26;
- margin: 10px;
- `;
-
 export const LogoIcon = styled(FontelloIcon)`
   color: ${palette.primary3Color};
   fontSize: 112;
@@ -180,19 +168,4 @@ export const CheckIcon = styled(Icon)`
   color: ${palette.defaultColor};
   font-size: 38;
   transform: rotate(-8deg);
- `;
-
-export const SnackContent = styled(View)`
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 10px;
- `;
-
-export const TittleCancel = styled(Text)`
-  color: ${palette.primary3Color};
- `;
-
-export const TittleDelete = styled(Text)`
-  color: ${palette.accent2Color};
  `;
