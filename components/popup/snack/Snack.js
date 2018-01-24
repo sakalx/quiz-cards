@@ -6,7 +6,6 @@ import {Menu, MenuOptions, MenuTrigger, renderers} from 'react-native-popup-menu
 import {wrap} from './style.js';
 
 @connect(store => ({store}))
-
 class Snack extends React.Component {
   dispatch = this.props.dispatch;
 
