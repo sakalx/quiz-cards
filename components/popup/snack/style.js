@@ -1,6 +1,5 @@
  export const wrap = {
-  height: 67,
+  height: 55,
   alignItems: 'center',
   justifyContent: 'center',
-  padding: 5,
 };

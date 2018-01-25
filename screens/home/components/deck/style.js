@@ -32,6 +32,7 @@ export const Badge = styled(View)`
 
 export const BadgeTitle = styled(Text)`
   color: ${palette.primary2Color};
+  font-size: 14;
 `;
 
 export const Title = styled(Text)`

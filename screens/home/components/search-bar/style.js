@@ -16,7 +16,7 @@ export const Wrap = styled(Header)`
 `;
 export const Bar = styled(Item)`
   background-color: ${palette.alternateBackground};
-  padding: 5px;
+  padding: 15px;
 `;
 export const SearchField = styled(Input)`
   background-color: ${palette.alternateBackground};

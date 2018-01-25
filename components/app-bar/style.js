@@ -17,7 +17,7 @@ export const Wrap = styled(Header)`
 
 export const Bar = styled(Item)`
   background-color: ${palette.alternateBackground};
-  padding: 5px;
+  padding: 15px;
 `;
 
 export const BarTitle = styled(Title)`
@@ -31,4 +31,4 @@ export const ArrowIcon = styled(Icon)`
 export const DeckIcon = styled(FontelloIcon)`
   color: ${palette.defaultColor};
   font-size: 24;
- `;
+`;
