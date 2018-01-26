@@ -30,12 +30,13 @@ export const Subtitle = styled(Text)`
   font-size: 21;
 `;
 
-export const ButtonLayout = styled(Button)`
+export const RightFooterBtnView = styled(View)`
+  flex: 1
   flex-direction: row;
-  background-color: ${palette.alternateBackground};
+  justify-content: space-around;
 `;
 
-export const ButtonTitle = styled(Text)`
+export const FooterBtnTitle = styled(Text)`
   color: ${palette.primary1Color};
 `;
 

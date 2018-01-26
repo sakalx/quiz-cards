@@ -20,6 +20,11 @@ import {
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
 
+export const Spinner = styled(View)`
+  backgroundColor: ${palette.bodyBackground};
+  flex: 1 
+ `;
+ 
 export const tab = {
   text: {
     color: palette.primary3Color,
@@ -130,7 +135,7 @@ export const FooterButton = styled(Button)`
  background-color: ${palette.alternateBackground};
  `;
 
-export const ButtonTitle = styled(Text)`
+export const FooterBtnTitle = styled(Text)`
  color: ${palette.primary1Color};
  font-size: 16;
  `;
@@ -142,10 +147,7 @@ export const HomeIcon = styled(Icon)`
 
 export const LogoIcon = styled(FontelloIcon)`
   color: ${palette.primary3Color};
-  fontSize: 112;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  fontSize: 84;
  `;
 
 export const DeckTabView = styled(View)`
@@ -159,7 +161,7 @@ export const DeckButton = styled(TouchableOpacity)`
 export const DeckIcon = styled(FontelloIcon)`
   fontSize: 82;
   margin: 15px;
- `;
+`;
 
 export const CheckIcon = styled(Icon)`
   position: absolute;
@@ -168,4 +170,4 @@ export const CheckIcon = styled(Icon)`
   color: ${palette.defaultColor};
   font-size: 38;
   transform: rotate(-8deg);
- `;
+`;

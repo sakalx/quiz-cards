@@ -15,7 +15,7 @@ export const ButtonLayout = styled(Button)`
   background-color: ${palette.alternateBackground};
 `;
 
-export const ButtonTitle = styled(Text)`
+export const FooterBtnTitle = styled(Text)`
   color: ${palette.primary1Color};
   font-size: 16;
 `;
