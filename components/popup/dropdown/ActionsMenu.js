@@ -12,28 +12,26 @@ import {
   TriggerIcon
 } from './style.js';
 
-class ActionsMenu extends React.Component {
-  render() {
-    const {style = {}, actions = {}} = this.props;
+const ActionsMenu = props => {
+  const {style = {}, actions = {}} = props;
 
-    return (
-        <Menu style={{...style}}>
-          <MenuTrigger customStyles={{TriggerTouchableComponent: TouchableOpacity}}>
-            <TriggerIcon name='dots-three-vertical'/>
-          </MenuTrigger>
-          <MenuOptions customStyles={{optionsContainer}}>
-            <Option onSelect={() => actions.remove()}>
-              <TitleDelete >DELETE</TitleDelete>
-              <TrashIcon name='trash'/>
-            </Option>
-            <Option onSelect={() => actions.edit()}>
-              <TitleEdit >EDIT</TitleEdit>
-              <EditIcon name='edit'/>
-            </Option>
-          </MenuOptions>
-        </Menu>
-    );
-  }
-}
+  return (
+      <Menu style={{...style}}>
+        <MenuTrigger customStyles={{TriggerTouchableComponent: TouchableOpacity}}>
+          <TriggerIcon name='dots-three-vertical'/>
+        </MenuTrigger>
+        <MenuOptions customStyles={{optionsContainer}}>
+          <Option onSelect={() => actions.remove()}>
+            <TitleDelete >DELETE</TitleDelete>
+            <TrashIcon name='trash'/>
+          </Option>
+          <Option onSelect={() => actions.edit()}>
+            <TitleEdit >EDIT</TitleEdit>
+            <EditIcon name='edit'/>
+          </Option>
+        </MenuOptions>
+      </Menu>
+  );
+};
 
 export default ActionsMenu;
