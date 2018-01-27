@@ -6,13 +6,18 @@ import {Text} from 'native-base';
 import {TouchableOpacity} from 'react-native';
 import {TittleCancel, TittleDelete, Wrap} from './style.js';
 
-@connect(store => ({store}))
-class RemoveMessage extends React.Component {
-  dispatch = this.props.dispatch;
+@connect(store => {
+  return {
+    dispatch: store.dispatch,
+  };
+})
+
+class RemoveMessage extends React.PureComponent {
+  _dispatch = this.props.dispatch;
 
   handelRemove = () => {
     this.props.handelRemove();
-    this.dispatch(hideSnack());
+    this._dispatch(hideSnack());
   };
 
   render() {
@@ -21,7 +26,7 @@ class RemoveMessage extends React.Component {
     return (
         <Wrap>
           <Text>{title} will be deleted</Text>
-          <TouchableOpacity onPress={() => this.dispatch(hideSnack())}>
+          <TouchableOpacity onPress={() => this._dispatch(hideSnack())}>
             <TittleCancel>CANCEL</TittleCancel>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.handelRemove}>
