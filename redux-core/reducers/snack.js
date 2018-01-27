@@ -1,29 +1,27 @@
 import types from '../actions/types';
 
 const initState = {
-  isVisible: false,
+  openSnack: false,
   duration: null,
   content: null,
 };
 
 function snack(state = initState, action) {
   const {snack} = types;
-
-  const {type, payload:{duration, content}={}} = action; 
+  const {type, payload: {openSnack, content, duration} = {}} = action;
 
   switch (type) {
     case snack.SHOW:
       return {
-        ...state,
-        isVisible: true,
+        openSnack,
+        content,
         duration,
-        content, 
       };
 
-case snack.HIDE:
+    case snack.HIDE:
       return {
-       ...state,
-       isVisible: false,
+        ...state,
+        openSnack: false,
       };
   }
   return state;
