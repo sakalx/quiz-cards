@@ -2,14 +2,10 @@ import React from 'react';
 import palette from 'constants/Colors';
 
 import {Content, Spinner} from 'native-base';
-
-style = {
-  flex: 1,
-  justifyContent: 'center',
-};
+import {wrap} from './style'
 
 const AppSpinner = () =>
-    <Content contentContainerStyle={style}>
+    <Content contentContainerStyle={wrap}>
       <Spinner color={palette.primary1Color}/>
     </Content>;
 
