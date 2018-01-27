@@ -6,27 +6,27 @@ const {deck} = types;
 export const getAllDecks = () => {
   return {
     type: deck.ALL,
-    payload: api.getAllDecks(), // [{deck}, {deck}, {deck}]
+    payload: api.getAllDecks(),
   };
 };
 
-export const getDeck = id => {
+export const addDeck = newDeck => {
   return {
-    type: deck.BY_ID,
-    payload: api.getDeck(id), // {deck}
+    type: deck.ADD,
+    payload: api.addDeck(newDeck),
   };
 };
 
 export const removeDeck = id => {
   return {
     type: deck.REMOVE,
-    payload: api.removeDeck(id), // id
+    payload: api.removeDeck(id),
   };
 };
 
 export const editDeck = editedDeck => {
   return {
     type: deck.EDIT,
-    payload: api.editDeck(editedDeck), // {edited Deck}
+    payload: api.editDeck(editedDeck),
   };
 };

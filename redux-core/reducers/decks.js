@@ -8,16 +8,19 @@ function decks(state = [], action) {
     case deck.ALL + FULFILLED:
       return payload;
 
-    case deck.BY_ID + FULFILLED:
-      return payload;
+    case deck.ADD + FULFILLED:
+      return [
+        ...state,
+        payload,
+      ];
+
+    case deck.REMOVE + FULFILLED:
+      return state.filter(deck => deck.id !== payload);
 
     case deck.EDIT + FULFILLED:
       return state.map(deck =>
           deck.id === payload.id ? payload : deck,
       );
-
-    case deck.REMOVE + FULFILLED:
-      return state.filter(deck => deck.id !== payload);
   }
   return state;
 }
