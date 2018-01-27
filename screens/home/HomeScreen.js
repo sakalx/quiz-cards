@@ -1,11 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getAllDecks} from 'redux-core/actions/decks';
+import {showSpinner} from 'redux-core/actions/spinner';
+import spinnerId from 'components/spinner/constants';
+import snackId from 'components/popup/snack/constants';
 
 import {FlatList} from 'react-native';
 import {Container, Content} from 'native-base';
 
-import AppSpinner from 'components/spiner/AppSpinner';
+import AppSpinner from 'components/spinner/AppSpinner';
 import Snack from 'components/popup/snack/Snack';
 
 import SearchBar from './components/search-bar/SearchBar';
@@ -13,14 +16,18 @@ import Deck from './components/deck/Deck';
 import ButtonAdd from './components/button-add/ButtonAdd';
 import {Spinner, wrap} from './style';
 
-@connect(store => ({store}))
-class HomeScreen extends React.Component {
-  dispatch = this.props.dispatch;
-
-  state = {
-    ready: false,
-    queryDecks: null,
+@connect(store => {
+  return {
+    decks: store.decks,
+    loading: store.spinner[spinnerId.HOME_LOADING],
+    openSnack: store.snack.openSnack,
   };
+})
+
+class HomeScreen extends React.PureComponent {
+  _dispatch = this.props.dispatch;
+
+  state = {queryDecks: null};
 
   static navigationOptions = ({navigation}) => {
     const {params} = navigation.state;
@@ -28,25 +35,28 @@ class HomeScreen extends React.Component {
     return {header};
   };
 
-  async componentWillMount() {
-    const {navigation, store: {decks}} = this.props;
+  componentDidMount() {
+    const {loading} = this.props;
+    if (loading) {
+      setTimeout(() => this._dispatch(
+          showSpinner(spinnerId.HOME_LOADING, false)), 0);
+    }
+  }
+
+  componentWillMount() {
+    const {navigation, decks} = this.props;
 
     navigation.setParams({handleSearch: this.updateListOfDecks});
-    await this.dispatch(getAllDecks());
-
-    this.setState({
-      ready: true,
-      decks,
-    });
+    decks.length === 0 && this._dispatch(getAllDecks());
   }
 
   updateListOfDecks = queryDecks => this.setState({queryDecks});
 
   render() {
-    const {ready, queryDecks} = this.state;
-    const {navigation: {navigate}, store: {decks}} = this.props;
+    const {queryDecks} = this.state;
+    const {navigation: {navigate}, decks, loading, openSnack} = this.props;
 
-    if (!ready) {
+    if (loading) {
       return (
           <Spinner>
             <AppSpinner/>
@@ -66,7 +76,7 @@ class HomeScreen extends React.Component {
             />
             <ButtonAdd navigate={navigate}/>
           </Content>
-          <Snack/>
+          {openSnack === snackId.HOME_SCREEN && <Snack/>}
         </Container>
     );
   }
