@@ -1,155 +1,177 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as api from 'api/api-storage';
-import {hideSnack, showSnack} from 'redux-core/actions/snack';
-import palette, {deckTheme} from 'constants/Colors';
-// Components
-import Modal from 'react-native-modal';
+import palette from 'constants/Colors';
 
-import Actions from 'components/popup/dropdown-actions/Actions'
+import {addDeck, editDeck} from 'redux-core/actions/decks';
+import {showSnack} from 'redux-core/actions/snack';
 
-import {FlatList, TouchableOpacity} from 'react-native';
-import {Footer, FooterTab, Form, Icon, Input, Label, Text, View} from 'native-base';
+import {Text, View} from 'native-base';
+
+import AppSpinner from 'components/spinner/AppSpinner';
+import FooterButtons from 'components/footer-buttons/FooterButtons';
 import Snack from 'components/popup/snack/Snack';
 
+import InputField from './components/input-field/InputField';
+import ThemesList from './components/themes-list/ThemesList';
+import QuestionsList from './components/questions-list/QuestionsList';
+import SetAnswer from './components/set-answer/SetAnswer';
+import ButtonAddQuestion from './components/button-add-question/ButtonAddQuestion';
+
 import {
-  AddButton,
-  AddButtonTitle,
-  Answer,
-  AnswerButtons,
-  ButtonTitle,
-  CheckIcon,
-  DeckButton,
-  DeckIcon,
   DeckTabView,
-  EditIcon,
-  FooterButton,
+  FooterBtnTitle,
   HomeIcon,
-  InputWrap,
-  ListItemView,
-  ListView,
-  LogoIcon,
-  Question,
-  QuestionView,
-  SelectAnswerSubText,
-  SelectAnswerText,
-  SelectAnswerView,
-  SelectColoRTitle,
-  SnackContent,
+  Spinner,
   tab,
   TabsView,
   TabView,
-  TittleCancel,
-  TittleDelete,
-  TrashIcon,
   Wrap
 } from './style.js';
 
-@connect(store => ({store}))
+import {showSpinner} from 'redux-core/actions/spinner';
+import spinnerId from 'components/spinner/constants';
+import snackId from 'components/popup/snack/constants';
 
-class UpdateDeckScreen extends React.Component {
-  dispatch = this.props.dispatch;
+@connect(store => {
+  return {
+    openSnack: store.snack.openSnack,
+    loading: store.spinner[spinnerId.DECK_LOADING],
+  };
+})
+
+class UpdateDeckScreen extends React.PureComponent {
+  _dispatch = this.props.dispatch;
+
   state = {
-    colorSelected: palette.defaultColor,
     questionId: null,
+    deckId: null,
     questions: {},
     inputDeck: null,
     inputQuestion: null,
-    selectAnswer: false,
+    colorSelected: palette.defaultColor,
+    setAnswer: false,
   };
 
   static navigationOptions = {header: null};
 
-  handelInput = ({value, fieldName}) => {
-    const valueNormalized = value.trim();
-    const setInputValue = value => this.setState({[fieldName]: value});
+  _questionAnimate = null;
 
-    valueNormalized ? setInputValue(value) : setInputValue(null);
-  };
+  _resolveSave = () => {
+    const {deckId, colorSelected, questions, inputDeck} = this.state;
+    const {navigate, state: {params}} = this.props.navigation;
 
-  handelSelectAnswer = () => {
-    const {inputQuestion} = this.state;
-
-    inputQuestion
-        ? this.setState({selectAnswer: true})
-        : this.setState({inputQuestion: false}); //!!inputQuestion
-  };
-
-  handelAddQuestion = answer => {
-    const {questionId, questions, inputQuestion} = this.state;
-    const newId = (+new Date()).toString(16);
-    const id = questionId || newId;
-    const SnackMsg =
-        <Text>
-          successfully {questionId ? 'update' : 'added'}
-        </Text>;
-
-this.dispatch(showSnack({content: SnackMsg}));
-
-
-
-    this.setState({
-      questions: {
-        ...questions,
-        [id]: {
-          id,
-          answer,
-          question: inputQuestion,
-        },
-      },
-      questionId: null,
-      selectAnswer: false,
-      inputQuestion: null,
-    });
-  };
-
-  handelRemoveQuestion = id => {
-    const {questions} = this.state;
-    const remove = () => {
-      delete questions[id];
-      this.setState({questions});
-      this.dispatch(hideSnack());
+    const deck = {
+      id: deckId || (+new Date()).toString(16),
+      title: inputDeck,
+      iconColor: colorSelected,
+      questions: {...questions},
     };
-    const SnackMsg = <SnackContent>
-      <Text>question will be deleted</Text>
-      <TouchableOpacity onPress={() => this.dispatch(hideSnack())}>
-        <TittleCancel>CANCEL</TittleCancel>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={remove}>
-        <TittleDelete>OK</TittleDelete>
-      </TouchableOpacity>
-    </SnackContent>;
 
-    this.dispatch(showSnack({duration: 3000, content: SnackMsg}));
+    navigate('Home');
+    this._dispatch(showSpinner(spinnerId.HOME_LOADING, true));
+
+    params && params.deck
+        ? this._editDeck(deck)
+        : this._createNewDeck(deck);
   };
 
-  handelEditQuestion = id => {
-    const {questions} = this.state;
-
+  _rejectSave = hasQuestions => {
+    const {inputDeck, inputQuestion} = this.state;
     this.setState({
-      questionId: id,
-      inputQuestion: questions[id].question,
+      inputDeck: !inputDeck ? false : inputDeck,
+      inputQuestion: !hasQuestions ? false : inputQuestion,
     });
+  };
+
+  _createNewDeck = deck => {
+    this._dispatch(addDeck(deck));
+    this._dispatch(showSnack({
+      openSnack: snackId.HOME_SCREEN,
+      content: <Text>DECK ADDED</Text>,
+      duration: 1200,
+    }));
+  };
+
+  _editDeck = deck => {
+    this._dispatch(editDeck(deck));
+    this._dispatch(showSnack({
+      openSnack: snackId.HOME_SCREEN,
+      content: <Text>DECK UPDATED</Text>,
+      duration: 2000,
+    }));
+  };
+
+  componentWillMount() {
+    const {params} = this.props.navigation.state;
+    const {deckId} = this.state;
+
+    if (!deckId && params && params.deck) {
+      const {title, questions, iconColor, id} = params.deck;
+
+      this.setState({
+        colorSelected: iconColor,
+        questions: {...questions},
+        inputDeck: title,
+        deckId: id,
+      });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.loading) {
+      setTimeout(() => this._dispatch(
+          showSpinner(spinnerId.DECK_LOADING, false),
+      ), 0);
+    }
+  }
+
+  handelInput = (fieldName, value) => this.setState({[fieldName]: value});
+
+  handelSelectTheme = colorSelected => this.setState({colorSelected});
+
+  handelSetAnswer = () => {
+    const {inputQuestion} = this.state;
+    inputQuestion
+        ? this.setState({setAnswer: true})
+        : this.setState({inputQuestion: false});
+  };
+
+  handelAddQuestion = (id, question, answer) => {
+    this.setState(prevState => {
+      return {
+        questions: {
+          ...prevState.questions,
+          [id]: {id, question, answer},
+        },
+        questionId: null,
+        setAnswer: false,
+        inputQuestion: null,
+      };
+    });
+
+    this._questionAnimate && this._questionAnimate.slideInDown(500);
+    this._questionAnimate = null;
+  };
+
+  handelRemoveQuestion = questions => this.setState({questions});
+
+  handelEditQuestion = (questionId, thisComponent) => {
+    const inputQuestion = this.state.questions[questionId].question;
+
+    this._questionAnimate = thisComponent;
+    this.setState({questionId, inputQuestion});
   };
 
   handelSave = () => {
-    const {colorSelected, questions, inputDeck, inputQuestion} = this.state;
+    const {questions, inputDeck} = this.state;
     const hasQuestions = Object.keys(questions).length;
 
-    if (inputDeck && hasQuestions) {
-      const {navigation: {navigate}} = this.props;
-      // show toast
-      api.addDeck({title: inputDeck, iconColor: colorSelected, questions});
-      navigate('Home');
-    } else {
-      this.setState({
-        inputDeck: !inputDeck ? false : inputDeck,
-        inputQuestion: !hasQuestions ? false : inputQuestion,
-      });
-    }
+    inputDeck && hasQuestions
+        ? this._resolveSave()
+        : this._rejectSave(hasQuestions);
   };
 
-  renderTab = ({title, fieldValue, content}) => {
+  _renderTab = ({title, fieldValue, content}) => {
     return (
         <TabView heading={fieldValue === false ? `${title} ⚠` : title}
                  textStyle={fieldValue === false ? tab.textError : tab.text}
@@ -162,167 +184,73 @@ this.dispatch(showSnack({content: SnackMsg}));
     );
   };
 
-  renderInput = ({label, callBack, fieldName, fieldValue}) => {
-    return (
-        <Form >
-          <InputWrap floatingLabel last
-                     success={!!fieldValue}
-                     error={fieldValue === false}
-          >
-            <Label style={{paddingLeft: 15}}>{label}</Label>
-            <Input style={{color: palette.primary1Color}}
-                   onChangeText={value => callBack({value, fieldName})}
-                   value={fieldValue || ''}
-            />
-            {fieldValue !== null
-                ? (!!fieldValue)
-                    ? <Icon name='checkmark-circle'/>
-                    : <Icon name='warning'/>
-                : <Icon name='create' style={{color: palette.primary3Color}}/>
-            }
-          </InputWrap>
-        </Form>
-    );
-  };
-
   render() {
-    const {navigation: {goBack}} = this.props;
+    const {navigation: {goBack}, openSnack, loading} = this.props;
+    const {colorSelected, questionId, questions, inputDeck, inputQuestion, setAnswer} = this.state;
 
-
-
-    const {colorSelected, questionId, questions, inputDeck, inputQuestion, selectAnswer} = this.state;
-
-    const questionsKeys = Object.keys(questions);
-    const questionsArr = questionsKeys.map(key => questions[key]);
+    if (loading) {
+      return (
+          <Spinner>
+            <AppSpinner/>
+          </Spinner>
+      );
+    }
 
     return (
         <Wrap>
           <TabsView initialPage={0}
                     tabBarUnderlineStyle={tab.underline}
           >
-            {this.renderTab({
+            {this._renderTab({
               title: 'DECK',
               fieldValue: inputDeck,
               content: <DeckTabView>
-                {this.renderInput({
-                  label: 'Name of Deck',
-                  fieldName: 'inputDeck',
-                  fieldValue: inputDeck,
-                  callBack: this.handelInput,
-                })}
-                <SelectColoRTitle>
-                  {colorSelected === palette.defaultColor
-                      ? 'Select Theme'
-                      : `Deck Theme: ${deckTheme[colorSelected]}`
-                  }
-
-                </SelectColoRTitle>
-
-                <FlatList
-                    data={Object.keys(deckTheme)}
-                    renderItem={({item: color}) => (
-                        <DeckButton onPress={() => this.setState({colorSelected: color})}>
-                          <DeckIcon name='deck' color={color}/>
-                          {colorSelected === color &&
-                          <CheckIcon name='checkbox'/>
-                          }
-
-                        </DeckButton>
-                    )
-
-                    }
-                    keyExtractor={item => item}
-                    numColumns={3}
-                    horizontal={false}
-
+                <InputField label='Name of Deck'
+                            fieldName='inputDeck'
+                            fieldValue={inputDeck}
+                            handelInputCB={this.handelInput}
                 />
-
+                <ThemesList colorSelected={colorSelected}
+                            handelSelectThemeCB={this.handelSelectTheme}
+                />
               </DeckTabView>,
             })
             }
-            {this.renderTab({
+            {this._renderTab({
               title: 'QUESTIONS',
               fieldValue: inputQuestion,
               content: <View>
-                {this.renderInput({
-                  label: 'Question',
-                  fieldName: 'inputQuestion',
-                  fieldValue: inputQuestion,
-                  callBack: this.handelInput,
-                })
-                }
-                <AddButton onPress={this.handelSelectAnswer}>
-                  <AddButtonTitle>
-                    {questionId ? 'EDIT' : 'ADD'}
-                  </AddButtonTitle>
-                </AddButton>
-                <ListView
-                    dataArray={questionsArr}
-                    renderRow={(item) =>
-                        <ListItemView>
-                          <QuestionView>
-                            <Question>{item.question}</Question>
-                            <Answer>{item.answer.toString()}</Answer>
-                          </QuestionView>
-
-
-                         
-
-                           <Actions actions={{
-                            edit: () => this.handelEditQuestion(item.id),
-                            remove: () => this.handelRemoveQuestion(item.id)
-                          }} />
-                        
-                          
-
-
-                        </ListItemView>
-                    }>
-                </ListView>
-                <Modal isVisible={selectAnswer}
-                       animationIn={'slideInLeft'}
-                       animationOut={'slideOutRight'}
-                >
-                  <SelectAnswerView>
-                    <SelectAnswerText>
-                      {inputQuestion}
-                    </SelectAnswerText>
-                    <SelectAnswerSubText>
-                      what should be an answer?
-                    </SelectAnswerSubText>
-                    <AnswerButtons>
-                      <TouchableOpacity onPress={() => this.handelAddQuestion(false)}>
-                        <ButtonTitle>
-                          FALSE
-                        </ButtonTitle>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => this.handelAddQuestion(true)}>
-                        <ButtonTitle>
-                          TRUE
-                        </ButtonTitle>
-                      </TouchableOpacity>
-                    </AnswerButtons>
-                    <LogoIcon name='logo'/>
-                  </SelectAnswerView>
-                </Modal>
+                <InputField label='Question'
+                            fieldName='inputQuestion'
+                            fieldValue={inputQuestion}
+                            handelInputCB={this.handelInput}
+                />
+                <ButtonAddQuestion hasQuestion={questionId}
+                                   handelSetAnswerCB={this.handelSetAnswer}
+                />
+                <QuestionsList questionsObj={questions}
+                               questionId={questionId}
+                               handelRemoveQuestionCB={this.handelRemoveQuestion}
+                               handelEditQuestionCB={this.handelEditQuestion}
+                />
+                <SetAnswer setAnswer={setAnswer}
+                           questionId={questionId}
+                           question={inputQuestion}
+                           handelAddQuestionCB={this.handelAddQuestion}
+                />
+                {openSnack === snackId.QUESTION_TAB && <Snack/>}
               </View>,
             })
             }
           </TabsView>
-          <Footer>
-            <FooterTab>
-              <FooterButton onPress={() => goBack()} full>
-                <HomeIcon name='home'/>
-              </FooterButton>
-              <FooterButton onPress={this.handelSave} full>
-                <ButtonTitle>SAVE</ButtonTitle>
-              </FooterButton>
-            </FooterTab>
-          </Footer>
-          <Snack/>
+          <FooterButtons leftBtnContent={<HomeIcon name='home'/>}
+                         rightBtnContent={<FooterBtnTitle>SAVE</FooterBtnTitle>}
+                         leftBtnCB={goBack}
+                         rightBtnCB={this.handelSave}
+          />
         </Wrap>
     );
   }
 }
 
-export default UpdateDeckScreen; 
+export default UpdateDeckScreen;
