@@ -3,11 +3,16 @@ import {connect} from 'react-redux';
 
 import {Bar, DeckIcon, SearchField, SearchIcon, Wrap} from './style';
 
-@connect(store => ({store}))
-class SearchBar extends React.Component {
+@connect(store => {
+  return {
+    decks: store.decks,
+  };
+})
+
+class SearchBar extends React.PureComponent {
 
   handelSearch = query => {
-    const {updateList, store: {decks}} = this.props;
+    const {updateList, decks} = this.props;
     let queryDecks = null;
 
     if (query) {

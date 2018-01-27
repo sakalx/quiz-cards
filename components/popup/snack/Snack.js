@@ -5,24 +5,29 @@ import {hideSnack} from 'redux-core/actions/snack';
 import {Menu, MenuOptions, MenuTrigger, renderers} from 'react-native-popup-menu';
 import {wrap} from './style.js';
 
-@connect(store => ({store}))
-class Snack extends React.Component {
-  dispatch = this.props.dispatch;
+@connect(store => {
+  return {
+    snack: store.snack,
+  };
+})
 
-  close = duration => {
-    setTimeout(() => this.dispatch(hideSnack()), duration);
+class Snack extends React.PureComponent {
+  _dispatch = this.props.dispatch;
+
+  _close = duration => {
+    setTimeout(() => this._dispatch(hideSnack()), duration);
   };
 
   render() {
-    const {store: {snack}} = this.props;
+    const {snack} = this.props;
 
-    if (snack.duration && snack.isVisible) {
-      this.close(snack.duration);
+    if (snack.duration && snack.openSnack) {
+      this._close(snack.duration);
     }
 
     return (
         <Menu renderer={renderers.SlideInMenu}
-              opened={snack.isVisible}
+              opened={!!snack.openSnack}
         >
           <MenuTrigger/>
           <MenuOptions style={wrap}>
