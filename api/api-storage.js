@@ -11,7 +11,6 @@ export async function getAllDecks() {
   const keys = await AsyncStorage.getAllKeys();
   const response = await AsyncStorage.multiGet(keys);
 
-  // await AsyncStorage.multiRemove(keys);
   if (response.length > 0) {
     const decks = response.filter(storageData => storageData[0] !== APP_INIT_KEY).
         map(storageData => JSON.parse(storageData[1]));
@@ -57,4 +56,10 @@ export async function editDeck({id, title, questions, iconColor}) {
 
   AsyncStorage.setItem(id, JSON.stringify(editedDeck));
   return editedDeck;
+}
+
+export async function resetApp() {
+  const keys = await AsyncStorage.getAllKeys();
+  await AsyncStorage.multiRemove(keys);
+  return await  getAllDecks();
 }
