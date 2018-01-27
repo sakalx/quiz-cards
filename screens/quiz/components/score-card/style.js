@@ -3,7 +3,7 @@ import palette from 'constants/Colors';
 import {createIconSetFromFontello} from '@expo/vector-icons';
 import fontelloConfig from 'assets/fonts/fontello/fontello.json';
 
-import {Button, Container, Icon, Text, View} from 'native-base';
+import {Container, Icon, Text, View} from 'native-base';
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
 

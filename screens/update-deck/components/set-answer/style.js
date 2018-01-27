@@ -37,4 +37,3 @@ export const LogoIcon = styled(FontelloIcon)`
   color: ${palette.primary3Color};
   fontSize: 84;
 `;
-

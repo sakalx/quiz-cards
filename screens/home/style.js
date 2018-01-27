@@ -11,4 +11,4 @@ export const wrap = {
 export const Spinner = styled(View)`
   backgroundColor: ${palette.bodyBackground};
   flex: 1 
- `;
+`;

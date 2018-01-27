@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
-import {Button, Container, Icon, Text, View} from 'native-base';
+import {Container, Icon, Text, View} from 'native-base';
 
 export const Wrap = styled(Container)`
   background-color: ${palette.bodyBackground};
@@ -10,10 +10,6 @@ export const Wrap = styled(Container)`
 export const animationWrap = {
   flex: 1,
 };
-
-export const ButtonLayout = styled(Button)`
-  background-color: ${palette.alternateBackground};
-`;
 
 export const FooterBtnTitle = styled(Text)`
   color: ${palette.primary1Color};

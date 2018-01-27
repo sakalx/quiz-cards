@@ -3,7 +3,7 @@ import palette from 'constants/Colors';
 import {createIconSetFromFontello} from '@expo/vector-icons';
 import fontelloConfig from 'assets/fonts/fontello/fontello.json';
 
-import {View, Text} from 'native-base';
+import {Text, View} from 'native-base';
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
 
@@ -37,9 +37,11 @@ export const BadgeTitle = styled(Text)`
 
 export const Title = styled(Text)`
   font-size: 18;
+  text-align: center;
+  width: 115;
   color: ${palette.primary1Color};
 `;
 
 export const DeckIcon = styled(FontelloIcon)`
  font-size: 112;
- `;
+`;

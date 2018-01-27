@@ -12,6 +12,11 @@ export const labelStyle = {
   paddingLeft: 15,
 };
 
+export const warningStyle = {
+  paddingLeft: 15,
+  color: palette.warningColor,
+};
+
 export const inputStyle = {
   color: palette.primary1Color,
 };
@@ -19,4 +24,3 @@ export const inputStyle = {
 export const createIconStyle = {
   color: palette.primary3Color,
 };
-

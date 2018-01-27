@@ -17,15 +17,15 @@ export const Option = styled(MenuOption)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
- `;
+`;
 
 export const TitleDelete = styled(Text)`
   color: ${palette.accent1Color};
- `;
+`;
 
 export const TitleEdit = styled(Text)`
   color: ${palette.primary1Color};
- `;
+`;
 
 export const TriggerIcon = styled(Entypo)`
   color: ${palette.primary1Color};
@@ -42,4 +42,4 @@ export const TrashIcon = styled(Icon)`
   color: ${palette.accent2Color};
   font-size: 26;
   margin: 10px;
- `;
+`;
