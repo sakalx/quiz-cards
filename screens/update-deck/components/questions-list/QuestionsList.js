@@ -19,9 +19,18 @@ import {Answer, ItemWrap, Question, QuestionWrap, Wrap} from './style';
 class QuestionsList extends React.PureComponent {
   _dispatch = this.props.dispatch;
 
-  handelEditQuestion(id) {
-    this[id].fadeOutUpBig(500);
+  state = {editingQuestion: null};
+
+  async handelEditQuestion(id) {
+    const {editingQuestion} = this.state;
+
+    if (editingQuestion) {
+      this[editingQuestion].slideInDown(500);
+      this.setState({editingQuestion: null})
+    }
     this.props.handelEditQuestionCB(id, this[id]);
+    this.setState({editingQuestion: id});
+    await this[id].slideOutUp(700);
   }
 
   async handelRemoveQuestion(id) {
