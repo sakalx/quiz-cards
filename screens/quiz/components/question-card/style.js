@@ -18,20 +18,20 @@ export const Counter = styled(Text)`
   font-size: 16;
 `;
 
-export const QuestionWrap = styled(View)`
+export const CenternView = styled(View)`
   flex: 1;
   justify-content: center;
   align-items: center;
 `;
 
 export const Title = styled(Text)`
+  font-size: 28;
   text-align: center;
   color: ${palette.accent1Color};
-  font-size: 28;
 `;
 
 export const Question = styled(Text)`
+  font-size: 18;
   text-align: center;
   color: ${palette.primary2Color};
-  font-size: 18;
 `;
