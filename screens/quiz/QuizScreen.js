@@ -64,11 +64,11 @@ class QuizScreen extends React.PureComponent {
     return currentCard === totalCards;
   };
 
-  openSnack = answer => {
+  _openSnack = checkedAnswer => {
     this._dispatch(showSnack({
       openSnack: snackId.QUIZ_SCREEN,
       duration: null,
-      content: this.renderSnackAnswer(answer),
+      content: this.renderSnackAnswer(checkedAnswer),
     }));
   };
 
@@ -85,9 +85,11 @@ class QuizScreen extends React.PureComponent {
 
   handelAnswer = answer => {
     const {currentCard, questions, score} = this.state;
+    const correctAnswer = questions[currentCard - 1].answer;
+    const checkedAnswer = correctAnswer === answer;
 
-    this.openSnack(answer);
-    if (questions[currentCard - 1].answer === answer) {
+    this._openSnack(checkedAnswer);
+    if (checkedAnswer) {
       this.setState({score: score + 1});
       this.animationInOut();
     } else {
@@ -101,9 +103,9 @@ class QuizScreen extends React.PureComponent {
     finished: false,
   });
 
-  renderSnackAnswer = answer => {
+  renderSnackAnswer = checkedAnswer => {
     return (<SnackAnswerView>
-          {answer
+          {checkedAnswer
               ? <CorrectIcon name='checkmark-circle'/>
               : <UncorrectIcon name='warning'/>
           }
