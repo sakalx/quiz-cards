@@ -1,8 +1,8 @@
 import React from 'react';
+import {setLocalNotification} from 'api/registerPushNotifications';
 import {Provider} from 'react-redux';
 import store from 'redux-core/store';
 import {showSpinner} from 'redux-core/actions/spinner';
-
 import styled from 'styled-components/native';
 import palette from 'constants/Colors';
 
@@ -32,6 +32,10 @@ class App extends React.Component {
 
     store.dispatch(showSpinner(spinnerId.FONTS_LOADING, false));
     this.setState({ready: true});
+  }
+
+  componentDidMount() {
+    setLocalNotification()
   }
 
   render() {

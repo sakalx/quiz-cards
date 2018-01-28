@@ -1,9 +1,9 @@
 import {AsyncStorage} from 'react-native';
 import DefaultData from './default-data';
+import storageKey from './constants';
 
 export async function getAllDecks() {
-  const APP_INIT_KEY = 'challenge:initial-app';
-
+  const {APP_INIT_KEY, NOTIFICATION_KEY} = storageKey;
   const defaultDataKeys = Object.keys(DefaultData);
   const defaultValue = defaultDataKeys.map(
       key => [key, JSON.stringify(DefaultData[key])]);
@@ -12,14 +12,15 @@ export async function getAllDecks() {
   const response = await AsyncStorage.multiGet(keys);
 
   if (response.length > 0) {
-    const decks = response.filter(storageData => storageData[0] !== APP_INIT_KEY).
+    const decks = response.filter(storageData =>
+    storageData[0] !== APP_INIT_KEY && storageData[0] !== NOTIFICATION_KEY).
         map(storageData => JSON.parse(storageData[1]));
 
     return decks;
   } else {
     await AsyncStorage.multiSet([
       ...defaultValue,
-      [APP_INIT_KEY, JSON.stringify('app-installed')],
+      [APP_INIT_KEY, JSON.stringify('Challenge::app-installed')],
     ]);
 
     return getAllDecks();
