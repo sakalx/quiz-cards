@@ -1,5 +1,5 @@
 import types from './types';
-import * as api from 'api/api-storage';
+import * as api from 'app/api/api-storage';
 
 const {deck} = types;
 

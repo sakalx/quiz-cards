@@ -1,7 +1,7 @@
 import React from 'react';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 
-import FooterButtons from 'components/footer-buttons/FooterButtons';
+import FooterButtons from 'app/components/footer-buttons/FooterButtons';
 import {
   Body,
   FooterBtnTitle,

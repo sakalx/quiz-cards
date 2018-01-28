@@ -1,5 +1,5 @@
 import React from 'react';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 
 import {Content, Spinner} from 'native-base';
 import {wrap} from './style'

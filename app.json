@@ -1,11 +1,14 @@
 {
   "expo": {
-    "sdkVersion": "24.0.0",
+    "sdkVersion": "25.0.0",
     "version": "1.0",
     "name": "Challenge",
     "description": "App for training your memory",
     "slug": "cards",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "primaryColor": "#2793e8",
     "privacy": "public",

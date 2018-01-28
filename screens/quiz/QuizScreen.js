@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {hideSnack, showSnack} from 'redux-core/actions/snack';
-import {attention, entrances, exits} from 'constants/animations';
+import {hideSnack, showSnack} from 'app/redux-core/actions/snack';
+import {attention, entrances, exits} from 'app/constants/animations';
 
 import * as Animatable from 'react-native-animatable';
 
-import snackId from 'components/popup/snack/constants';
-import AppBar from 'components/app-bar/AppBar';
-import FooterButtons from 'components/footer-buttons/FooterButtons';
-import Snack from 'components/popup/snack/Snack';
+import snackId from 'app/components/popup/snack/constants';
+import AppBar from 'app/components/app-bar/AppBar';
+import FooterButtons from 'app/components/footer-buttons/FooterButtons';
+import Snack from 'app/components/popup/snack/Snack';
 
 import ScoreCard from './components/score-card/ScoreCard';
 import QuestionCard from './components/question-card/QuestionCard';

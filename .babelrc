@@ -4,20 +4,7 @@
     "development": {
       "plugins": [
         "transform-react-jsx-source",
-        "transform-decorators-legacy",
-        ["module-resolver", {
-          "root": ["./"],
-          "extensions": [".js", ".ios.js", ".android.js"],
-          "alias": {
-            "api": "./api",
-            "assets": "./assets",
-            "components": "./components",
-            "constants": "./constants",
-            "navigation": "./navigation",
-            "screens": "./screens",
-            "redux-core": "./redux-core"
-          }
-        }]
+        "transform-decorators-legacy"
       ]
     }
   }

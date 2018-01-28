@@ -1,17 +1,17 @@
 import React from 'react';
-import {setLocalNotification} from 'api/registerPushNotifications';
 import {Provider} from 'react-redux';
-import store from 'redux-core/store';
-import {showSpinner} from 'redux-core/actions/spinner';
 import styled from 'styled-components/native';
-import palette from 'constants/Colors';
+import setLocalNotification from './api/registerPushNotifications';
+import store from './redux-core/store';
+import {showSpinner} from './redux-core/actions/spinner';
+import palette from './constants/Colors';
 
 import {View} from 'react-native';
 import {MenuProvider} from 'react-native-popup-menu';
 
-import AppNavigator from 'navigation/RootNavigation';
-import AppSpinner from 'components/spinner/AppSpinner';
-import spinnerId from 'components/spinner/constants';
+import AppNavigator from './navigation/RootNavigation';
+import AppSpinner from './components/spinner/AppSpinner';
+import spinnerId from './components/spinner/constants';
 
 const Spinner = styled(View)`
  backgroundColor: ${palette.bodyBackground};

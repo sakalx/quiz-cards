@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 import {Container, Icon, Text, View} from 'native-base';
 
 export const Wrap = styled(Container)`

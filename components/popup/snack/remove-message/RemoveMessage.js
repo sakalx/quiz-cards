@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {hideSnack} from 'redux-core/actions/snack';
+import {hideSnack} from 'app/redux-core/actions/snack';
 
-import {Text} from 'native-base';
 import {TouchableOpacity} from 'react-native';
+import {Text} from 'native-base';
 import {TittleCancel, TittleDelete, Wrap} from './style.js';
 
 @connect(store => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {hideSnack} from 'redux-core/actions/snack';
+import {hideSnack} from 'app/redux-core/actions/snack';
 
 import {Menu, MenuOptions, MenuTrigger, renderers} from 'react-native-popup-menu';
 import {wrap} from './style.js';

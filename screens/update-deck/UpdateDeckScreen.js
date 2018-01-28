@@ -1,15 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 
-import {addDeck, editDeck} from 'redux-core/actions/decks';
-import {showSnack} from 'redux-core/actions/snack';
+import spinnerId from 'app/components/spinner/constants';
+import snackId from 'app/components/popup/snack/constants';
+
+import {addDeck, editDeck} from 'app/redux-core/actions/decks';
+import {showSnack} from 'app/redux-core/actions/snack';
+import {showSpinner} from 'app/redux-core/actions/spinner';
 
 import {Text, View} from 'native-base';
 
-import AppSpinner from 'components/spinner/AppSpinner';
-import FooterButtons from 'components/footer-buttons/FooterButtons';
-import Snack from 'components/popup/snack/Snack';
+import AppSpinner from 'app/components/spinner/AppSpinner';
+import FooterButtons from 'app/components/footer-buttons/FooterButtons';
+import Snack from 'app/components/popup/snack/Snack';
 
 import InputField from './components/input-field/InputField';
 import ThemesList from './components/themes-list/ThemesList';
@@ -27,10 +31,6 @@ import {
   TabView,
   Wrap
 } from './style.js';
-
-import {showSpinner} from 'redux-core/actions/spinner';
-import spinnerId from 'components/spinner/constants';
-import snackId from 'components/popup/snack/constants';
 
 @connect(store => {
   return {

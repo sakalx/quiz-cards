@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 import {Constants} from 'expo';
 
 import {Container, Icon, Tab, Tabs, Text, View} from 'native-base';

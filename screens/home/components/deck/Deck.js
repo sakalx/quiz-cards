@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {removeDeck} from 'redux-core/actions/decks';
-import {showSnack} from 'redux-core/actions/snack';
-import snackId from 'components/popup/snack/constants';
+import {removeDeck} from 'app/redux-core/actions/decks';
+import {showSnack} from 'app/redux-core/actions/snack';
+import snackId from 'app/components/popup/snack/constants';
 
 import {TouchableOpacity} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-import ActionsMenu from 'components/popup/dropdown/ActionsMenu';
-import RemoveMessage from 'components/popup/snack/remove-message/RemoveMessage';
+import ActionsMenu from 'app/components/popup/dropdown/ActionsMenu';
+import RemoveMessage from 'app/components/popup/snack/remove-message/RemoveMessage';
 
 import {Badge, BadgeTitle, Card, DeckIcon, menu, Title, Wrap} from './style';
 

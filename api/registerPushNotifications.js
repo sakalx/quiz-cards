@@ -18,7 +18,7 @@ function createNotification() {
   };
 }
 
-export async function setLocalNotification() {
+export default async function setLocalNotification() {
   const {NOTIFICATION_KEY} = storageKey;
   const notification = await AsyncStorage.getItem(NOTIFICATION_KEY);
   const hasNotification = JSON.parse(notification);

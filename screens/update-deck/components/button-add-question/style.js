@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 
 import {TouchableOpacity} from 'react-native';
 import {Text} from 'native-base';

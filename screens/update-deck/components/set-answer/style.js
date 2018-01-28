@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 import {createIconSetFromFontello} from '@expo/vector-icons';
-import fontelloConfig from 'assets/fonts/fontello/fontello.json';
+import fontelloConfig from 'app/assets/fonts/fontello/fontello.json';
 
 import {Text, View} from 'native-base';
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);

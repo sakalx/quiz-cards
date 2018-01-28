@@ -1,6 +1,6 @@
 import React from 'react';
-import palette, {deckTheme} from 'constants/Colors';
-import {attention} from 'constants/animations';
+import palette, {deckTheme} from 'app/constants/Colors';
+import {attention} from 'app/constants/animations';
 
 import {FlatList} from 'react-native';
 import * as Animatable from 'react-native-animatable';

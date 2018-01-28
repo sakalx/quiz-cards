@@ -1,5 +1,5 @@
 import React from 'react';
-import {resetApp} from 'api/api-storage';
+import {resetApp} from 'app/api/api-storage';
 
 import {Form, Icon, Input, Label} from 'native-base';
 

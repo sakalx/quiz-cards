@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {showSnack} from 'redux-core/actions/snack';
-import snackId from 'components/popup/snack/constants';
+import {showSnack} from 'app/redux-core/actions/snack';
+import snackId from 'app/components/popup/snack/constants';
 
 import {Text, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';

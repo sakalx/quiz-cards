@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {showSpinner} from 'redux-core/actions/spinner';
+import {showSpinner} from 'app/redux-core/actions/spinner';
 
-import spinnerId from 'components/spinner/constants';
+import spinnerId from 'app/components/spinner/constants';
 import {Button, ButtonIcon} from './style';
 
 @connect(store => {

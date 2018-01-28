@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import palette from 'constants/Colors';
+import palette from 'app/constants/Colors';
 import {Constants} from 'expo';
 import {createIconSetFromFontello} from '@expo/vector-icons';
-import fontelloConfig from 'assets/fonts/fontello/fontello.json';
+import fontelloConfig from 'app/assets/fonts/fontello/fontello.json';
 import {Header, Icon, Item, Title} from 'native-base';
 
 const FontelloIcon = createIconSetFromFontello(fontelloConfig);
