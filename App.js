@@ -18,7 +18,7 @@ const Spinner = styled(View)`
  flex: 1 
  `;
 
-class App extends React.Component {
+class App extends React.PureComponent {
   state = {ready: false};
 
   async componentWillMount() {
