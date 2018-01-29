@@ -11,7 +11,7 @@ export async function getAllDecks() {
   const keys = await AsyncStorage.getAllKeys();
   const response = await AsyncStorage.multiGet(keys);
 
-  if (response.length > 0) {
+  if (response.length > 2) {
     const decks = response.filter(storageData =>
     storageData[0] !== APP_INIT_KEY && storageData[0] !== NOTIFICATION_KEY).
         map(storageData => JSON.parse(storageData[1]));
