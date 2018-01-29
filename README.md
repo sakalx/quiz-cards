@@ -4,19 +4,14 @@
 ________________________________________________________
 ________________________________________________________
 ## Deployed to
-**for android :**  ready for download
-```
-https://play.google.com/store/apps/details?id=com.apk.sakal
-```
+**Google Play Store :** **[DOWNLOAD](https://play.google.com/store/apps/details?id=com.apk.sakal)** 
+
+
 **for ios :**  
-> 1) you need download  EXPO :
-```
-https://itunes.apple.com/us/app/expo-client/id982107779?mt=8
-```
-2) scan QR code with Expo
-```
-https://expo.io/@sakal/cards
-```
+> 1) You need download : **[Expo Client](https://itunes.apple.com/us/app/expo-client/id982107779?mt=8)**
+> 2) Use Expo to scan QR code : **[QR CODE](https://expo.io/@sakal/cards)**
+
+
 ________________________________________________________
 ________________________________________________________
 >  `Your comments are always welcome`
