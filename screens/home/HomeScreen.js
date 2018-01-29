@@ -47,7 +47,9 @@ class HomeScreen extends React.PureComponent {
     const {navigation, decks} = this.props;
 
     navigation.setParams({handleSearch: this.updateListOfDecks});
-    decks.length === 0 && this._dispatch(getAllDecks());
+    if (decks.length === 0) {
+      this._dispatch(getAllDecks());
+    }
   }
 
   updateListOfDecks = queryDecks => this.setState({queryDecks});
