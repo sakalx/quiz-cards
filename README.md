@@ -1,3 +1,18 @@
+![N|Solid](http://sakals.000webhostapp.com/share/challenge/icon.png)
+# True Or False Challenge App
+________________________________________________________
+________________________________________________________
+# Deployed to
+>**for android** - :
+https://play.google.com/store/apps/details?id=com.apk.sakal
+>
+>**for ios** - 
+you need install EXPO
+https://itunes.apple.com/us/app/expo-client/id982107779?mt=8
+using Expo App scan QR code from
+https://expo.io/@sakal/cards
+________________________________________________________
+________________________________________________________
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
