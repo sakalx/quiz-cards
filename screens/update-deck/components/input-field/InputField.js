@@ -18,8 +18,9 @@ class InputField extends React.PureComponent {
       && (value = value.trim());
       value.charAt(length - 1) === ' ' && value.charAt(length - 2) === ' '
       && (value = value.trim());
-      value === 'RESEТR'
-      && resetApp().then(r => this.setState({warningLabel: '😈'}));
+      if (value === 'RESEТR') {
+        resetApp().then(r => this.setState({warningLabel: '😈'}));
+      }
     }
 
     length >= max + 1 && (value = value.substr(0, max));

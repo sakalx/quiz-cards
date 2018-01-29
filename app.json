@@ -1,7 +1,7 @@
 {
   "expo": {
     "sdkVersion": "25.0.0",
-    "version": "1.0.1",
+    "version": "2.0.1",
     "name": "Challenge",
     "description": "App for training your memory",
     "slug": "cards",
