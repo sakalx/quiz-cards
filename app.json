@@ -28,6 +28,7 @@
     },
     "androidShowExponentNotificationInShellApp": true,
     "android": {
+      "versionCode": 2,
       "package": "com.apk.sakal"
     },
     "assetBundlePatterns": [
